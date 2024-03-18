@@ -32,25 +32,16 @@
         id = "property_menu" 
         name = "Property"
         parent= 'estate_management_root_menu'
+        action = 'property_action'
         sequence = "20"
     />
-        <menuitem 
-            id = "property_menu_item" 
-            name = "Properties"
-            parent= 'property_menu'
-            action = 'property_action'
-        />
           
     <menuitem 
         id = "transaction_menu" 
         name = "Transaction"
         parent= 'estate_management_root_menu'
+        action = 'transaction_action'
         sequence = "30"
     />
-        <menuitem 
-            id = "transaction_menu_item" 
-            name = "Transactions"
-            parent= 'transaction_menu'
-            action = 'transaction_action'
-        />
+
 </odoo>
