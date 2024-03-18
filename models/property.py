@@ -3,9 +3,12 @@ from odoo import models, fields, api
 
 class Property(models.Model):
     _name = "property"
+    _sql_constraints = [
+        ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
+    ]
 
     # The name or identifier of the property (e.g., “Luxury Villa,” “Apartment 3B”).
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', required=True)
     # The physical address of the property.
     address = fields.Char(string='Address')
     # The type of property (e.g., residential, commercial, land).
@@ -13,16 +16,42 @@ class Property(models.Model):
         ('residential', 'Residential'),
         ('commercial', 'Commercial'),
         ('land', 'Land')
-    ], string='Type')
+    ], string='Type', required=True)
+
     # The size of the property (in square meters or square feet).
     # computed field for square meters
     size = fields.Float(compute="_compute_size", string='Size')
     width = fields.Float(string='Width')
     height = fields.Float(string='Height')
+
     # The selling or rental price of the property.
-    price = fields.Integer(string='Price')
+    price = fields.Integer(string='Price', required=True)
     # Additional details about the property.
     description = fields.Text(string='Description')
+
+    # Represents the current state of the property (e.g., available, rented, under maintenance)
+    state = fields.Selection([
+        ('available', 'Available'),
+        ('rented', 'Rented'),
+        ('under_maintenance', 'Under Maintenance')
+    ])
+
+    bedrooms = fields.Integer(string='Bedrooms', default=2)
+
+    living_area = fields.Integer(string='Living Area (sqm)')
+    facades = fields.Integer(string='Facades')
+    garage = fields.Boolean(string='Garage')
+
+    garden = fields.Boolean(string='Garden')
+    garden_area = fields.Integer(string='Garden Area (sqm)', default=10)
+    garden_orientation = fields.Selection([
+        ('north', 'North'),
+        ('south', 'South'),
+        ('east', 'East'),
+        ('west', 'West')
+    ])
+
+    availability_date = fields.Datetime(string='Availability Date')
 
     owners = fields.One2many('owner', 'property_id', string="Owners")
     tenant = fields.Many2one('tenant', string='Tenants')
