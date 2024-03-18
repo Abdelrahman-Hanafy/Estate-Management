@@ -101,8 +101,13 @@
       <form string="Property">
         <header>
           <!-- <button name="mark_Rented" type="object" string="Rented" /> -->
-          <button name="mark_Available" type="object" string="Cancel Rent" />
-          <button name="mark_Under_Maintenance" type="object" string="Under Maintenance" />
+          <button name="mark_Available" type="object" string="Cancel Rent"
+            invisible="state == 'new'" />
+          <button name="mark_Under_Maintenance" type="object" string="Start Maintenance"
+            invisible="state == 'under_maintenance'" />
+          <button name="mark_Available" type="object" string="End Maintenance"
+            invisible="state != 'under_maintenance'" />
+
           <field name="state" widget="statusbar"
             statusbar_visible="available, offer_received, rented" />
 
@@ -111,7 +116,10 @@
           <h1>
             <field name="name" string="Name" />
           </h1>
-          <field name="state" readonly='1' />
+          <h3 invisible="state != 'under_maintenance'">
+            <field name="state" readonly='1'
+              class="d-block p-2 bg-warning mx-auto" />
+          </h3>
           <group>
 
             <group>
@@ -124,18 +132,6 @@
                 <field name="best_offer" />
               </group>
 
-            </group>
-            <group>
-              <field name='address' />
-              <field name='width' />
-              <field name='height' />
-              <field name='size' />
-            </group>
-            <group>
-
-              <field name='owners' widget="many2many_tags" options="{'no_create': True}"
-                string="Owners" />
-              <field name='tenant' string="Current Tenant" />
             </group>
 
             <notebook>
@@ -158,7 +154,7 @@
               <page string="Offers">
                 <!-- List of offers for this property. -->
                 <group>
-                  <field name="offers" widget="one2many_list" string="Offers">
+                  <field name="offers" widget="one2many_list">
                     <tree>
                       <!-- Partner making the offer. -->
                       <field name="partner_id" />
@@ -172,6 +168,20 @@
                       <button name="refuse_offer" string="❌" type="object" />
                     </tree>
                   </field>
+                </group>
+              </page>
+              <page string="Other Info">
+                <group>
+                  <field name='address' />
+                  <field name='width' />
+                  <field name='height' />
+                  <field name='size' />
+                </group>
+                <group>
+
+                  <field name='owners' widget="many2many_tags" options="{'no_create': True}"
+                    string="Owners" />
+                  <field name='tenant' string="Current Tenant" />
                 </group>
               </page>
             </notebook>
