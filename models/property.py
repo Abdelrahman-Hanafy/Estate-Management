@@ -3,86 +3,147 @@ from datetime import datetime, timedelta
 
 
 class Property(models.Model):
+    """
+    A property can be a residential, commercial or land property. 
+    It has a name, a property type, an address, a size, a price and a description.
+    It can also have additional features like bedrooms, living area, facades, garage, garden, etc.
+    The state of the property is one of available, rented or under maintenance.
+    """
     _name = "property"
     _sql_constraints = [
         ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
     ]
 
     # The name or identifier of the property (e.g., “Luxury Villa,” “Apartment 3B”).
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string='Name', required=True,
+                       help="The name of the property")
     # The physical address of the property.
-    address = fields.Char(string='Address')
+    address = fields.Char(string='Address', help="The address of the property")
     # The type of property (e.g., residential, commercial, land).
     property_type = fields.Selection([
         ('residential', 'Residential'),
         ('commercial', 'Commercial'),
         ('land', 'Land')
-    ], string='Type', required=True)
+    ], string='Type', required=True, help="The type of the property")
 
     # The size of the property (in square meters or square feet).
     # computed field for square meters
-    size = fields.Float(compute="_compute_size", string='Size')
-    width = fields.Float(string='Width')
-    height = fields.Float(string='Height')
+    size = fields.Float(compute="_compute_size", string='Size',
+                        help="The size of the property in square meters")
+    width = fields.Float(string='Width', help="The width of the property")
+    height = fields.Float(string='Height', help="The height of the property")
 
     # The selling or rental price of the property.
-    price = fields.Integer(string='Price', required=True)
+    price = fields.Integer(string='Price', required=True,
+                           help="The selling or rental price of the property")
     # Additional details about the property.
-    description = fields.Text(string='Description')
+    description = fields.Text(string='Description',
+                              help="Additional details about the property")
 
     # Represents the current state of the property (e.g., available, rented, under maintenance)
     state = fields.Selection([
         ('available', 'Available'),
         ('rented', 'Rented'),
         ('under_maintenance', 'Under Maintenance')
-    ], default='available', string='State')
+    ], default='available', string='State',
+        help="The current state of the property")
 
-    bedrooms = fields.Integer(string='Bedrooms', default=2)
+    bedrooms = fields.Integer(
+        string='Bedrooms', default=2, help="The number of bedrooms of the property")
 
-    living_area = fields.Integer(string='Living Area (sqm)')
-    facades = fields.Integer(string='Facades')
-    garage = fields.Boolean(string='Garage')
+    living_area = fields.Integer(string='Living Area (sqm)',
+                                 help="The living area of the property in square meters")
+    facades = fields.Integer(
+        string='Facades', help="The number of facades of the property")
+    garage = fields.Boolean(
+        string='Garage', help="Whether the property has a garage or not")
 
-    garden = fields.Boolean(string='Garden')
-    garden_area = fields.Integer(string='Garden Area (sqm)', default=10)
+    garden = fields.Boolean(
+        string='Garden', help="Whether the property has a garden or not")
+    garden_area = fields.Integer(string='Garden Area (sqm)', default=10,
+                                 help="The garden area of the property in square meters")
     garden_orientation = fields.Selection([
         ('north', 'North'),
         ('south', 'South'),
         ('east', 'East'),
         ('west', 'West')
-    ], default='north')
+    ], default='north', string='Garden Orientation',
+        help="The orientation of the garden of the property")
 
-    availability_date = fields.Datetime(
-        string='Availability Date', default=lambda _: datetime.now() + timedelta(days=90))
+    availability_date = fields.Datetime(string='Availability Date',
+                                        default=lambda _: datetime.now() + timedelta(days=90),
+                                        help="The date from when the property is available")
 
-    best_offer = fields.Float(
-        string='Best Offer', compute="_compute_best_offer", store=True)
+    best_offer = fields.Float(string='Best Offer', compute="_compute_best_offer", store=True,
+                              help="The best offer for this property")
 
-    owners = fields.One2many('owner', 'property_id', string="Owners")
-    tenant = fields.Many2one('tenant', string='Tenants')
-    offers = fields.One2many('property.offer', 'property_id', string="Offers")
+    owners = fields.One2many('owner', 'property_id',
+                             string="Owners", help="The owners of the property")
+
+    tenant = fields.Many2one(
+        'tenant',
+        string='Tenants',
+        help="The tenant who currently occupies the property"
+    )
+
+    offers = fields.One2many(
+        'property.offer',
+        'property_id',
+        string="Offers",
+        help="The list of offers for this property"
+    )
 
     @api.depends("width", "height")
     def _compute_size(self):
+        """
+        Compute the size of the property based on its width and height
+
+        :return: The size of the property
+        :rtype: float
+        """
         for record in self:
             record.size = record.width * record.height
 
     @api.depends("offers")
     def _compute_best_offer(self):
+        """
+        Compute the best offer for the property based on its offers
+
+        :return: The best offer for the property
+        :rtype: float
+        """
         for record in self:
             record.best_offer = max(record.offers.mapped("price") or [0])
 
     def mark_Available(self):
+        """
+        Mark the property as Available
+
+        :return: The property state
+        :rtype: str
+        """
         for record in self:
             record.state = "available"
         return True
 
     def mark_Rented(self):
+        """
+        Mark the property as Rented
+
+        :return: The property state
+        :rtype: str
+        """
         for record in self:
             record.state = "rented"
         return True
 
     def mark_Under_Maintenance(self):
+        """
+        Mark the property as Under Maintenance
+
+        :return: The property state
+        :rtype: str
+        """
         for record in self:
             record.state = "under_maintenance"
         return True

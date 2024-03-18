@@ -2,6 +2,13 @@ from odoo import models, fields
 
 
 class Owner(models.Model):
+    """
+    Owners of a property
+
+    Represents the owners of a property in the system, and stores their contact
+    information and ownership percentage of the property.
+    """
+
     _name = "owner"
 
     name = fields.Char(string='Name')
