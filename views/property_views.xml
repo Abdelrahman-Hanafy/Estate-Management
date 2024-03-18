@@ -168,8 +168,6 @@
                       <button name="accept_offer" string="✔" type="object" class="oe_highlight" />
                       <!-- Button to refuse the offer. -->
                       <button name="refuse_offer" string="❌" type="object" class="oe_highlight" />
-
-
                     </tree>
                   </field>
                 </group>
