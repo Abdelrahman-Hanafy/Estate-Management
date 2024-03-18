@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record model="ir.module.category" id="estate_management_category">
+        <field name='name'> Estate Management Role</field>
+    </record>
+
+    <record model="res.groups" id="estate_management_manager">
+        <field name="name">Manager Role</field>
+        <field name="category_id" ref="Estate_Management.estate_management_category"/>
+    </record>
+
+    <record model="res.groups" id="estate_management_user">
+        <field name="name">User Role</field>
+        <field name="category_id" ref="Estate_Management.estate_management_category"/>
+    </record>
+</odoo>

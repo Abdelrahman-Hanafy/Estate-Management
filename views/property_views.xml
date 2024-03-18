@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    
+    <record id="property_view_search" model="ir.ui.view">
+      <field name="name">Property.search</field>
+      <field name="model">property</field>
+      <field name="arch" type="xml">
+          <search >
+            <filter name="residential_property_filter" string="residential" domain="[('property_type', '=', 'residential')]"/>
+            <separator/>
+            <filter name="cheap_property_filter" string="&gt; 10K$" domain="[('price', '&gt;=', 10000)]"/>
+            <filter name="cheap_property_filter" string="&lt; 50K$" domain="[('price', '&lt;=', 50000)]"/>
+          </search>
+      </field>
+    </record>
+
+    <record id="property_view_tree" model="ir.ui.view">
+        <field name="name">Property.tree</field>
+        <field name="model">property</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+                <field name="property_type"/>
+                <field name="price"/>
+
+                <field name='address' optional='hide'/>
+                <field name='size' optional='hide'/>
+                <field name='description' optional='hide'/>
+                <field name='owners' optional='hide'/>
+                <field name='tenant' optional='hide'/>
+            </tree>
+        </field>
+      </record>
+
+      <!-- widget="many2many_kanban" -->
+      <record id="property_view_form" model="ir.ui.view">
+        <field name="name">Property.form</field>
+        <field name="model">property</field>
+        <field name="arch" type="xml">
+            <form >
+              <h1>
+              <group>
+                  <field name="name" string="Name"/>
+                </group>
+              </h1>
+              <group>
+                <group>
+                  <field name="property_type" widget="radio"/>
+                  <field name="price"/>
+                </group>
+                <group>
+  
+                  <field name='address' />
+                  <field name='width' />
+                  <field name='height' />
+                  <field name='size' />
+                  <field name='description' />
+                </group>
+              </group>
+              <group>
+
+                <field name='owners' widget="many2many_tags" options="{'no_create': True}"/>
+                <field name='tenant' />
+              </group>
+            </form>
+        </field>
+      </record>
+    
+      <record id="property_action" model="ir.actions.act_window">
+            <field name="name">Property action</field>
+            <field name="res_model">property</field>
+            <field name="view_mode">tree,form</field>
+          </record>
+          
+          
+</odoo>

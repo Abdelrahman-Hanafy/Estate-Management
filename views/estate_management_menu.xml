@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <menuitem 
+        id = "estate_management_root_menu" 
+        name = "Estate Management"
+        sequence = "10"
+    />
+
+    <menuitem 
+        id = "client_menu" 
+        name = "Client"
+        parent= 'estate_management_root_menu'
+        sequence = "10"
+    />
+        <menuitem 
+            id = "owner_menu_item" 
+            name = "Owners"
+            parent= 'client_menu'
+            action = 'owner_action'
+            sequence = "10"
+        />
+        <menuitem 
+            id = "tenant_menu_item" 
+            name = "Tenants"
+            parent= 'client_menu'
+            action = 'tenant_action'
+            sequence = "20"
+        />
+
+    <menuitem 
+        id = "property_menu" 
+        name = "Property"
+        parent= 'estate_management_root_menu'
+        sequence = "20"
+    />
+        <menuitem 
+            id = "property_menu_item" 
+            name = "Properties"
+            parent= 'property_menu'
+            action = 'property_action'
+        />
+          
+    <menuitem 
+        id = "transaction_menu" 
+        name = "Transaction"
+        parent= 'estate_management_root_menu'
+        sequence = "30"
+    />
+        <menuitem 
+            id = "transaction_menu_item" 
+            name = "Transactions"
+            parent= 'transaction_menu'
+            action = 'transaction_action'
+        />
+</odoo>
