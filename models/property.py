@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from datetime import datetime, timedelta
 
 
 class Property(models.Model):
@@ -49,9 +50,10 @@ class Property(models.Model):
         ('south', 'South'),
         ('east', 'East'),
         ('west', 'West')
-    ])
+    ], default='north')
 
-    availability_date = fields.Datetime(string='Availability Date')
+    availability_date = fields.Datetime(
+        string='Availability Date', default=lambda _: datetime.now() + timedelta(days=90))
 
     owners = fields.One2many('owner', 'property_id', string="Owners")
     tenant = fields.Many2one('tenant', string='Tenants')
