@@ -83,11 +83,17 @@
                   <field name="facades" />
                   <field name="living_area" />
                   <field name="garage" />
+
                   <field name="garden" />
                   <field name="garden_area" invisible="not garden" />
                   <field name="garden_orientation" widget="radio" options="{'horizontal': true}"
                     invisible="not garden" />
 
+                </group>
+              </page>
+              <page string="offers">
+                <group>
+                  <field name="offers" />
                 </group>
               </page>
             </notebook>

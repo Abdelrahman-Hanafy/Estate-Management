@@ -57,6 +57,7 @@ class Property(models.Model):
 
     owners = fields.One2many('owner', 'property_id', string="Owners")
     tenant = fields.Many2one('tenant', string='Tenants')
+    offers = fields.One2many('property.offer', 'property_id', string="Offers")
 
     @api.depends("width", "height")
     def _compute_size(self):
