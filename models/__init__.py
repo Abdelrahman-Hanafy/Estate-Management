@@ -1,1 +1,1 @@
-from . import owner, tenant, property, transaction
+from . import owner, tenant, property, transaction, property_offer
