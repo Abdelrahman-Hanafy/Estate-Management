@@ -93,7 +93,14 @@
               </page>
               <page string="offers">
                 <group>
-                  <field name="offers" />
+                  <field name="offers" widget="one2many_list">
+                    <tree>
+                      <field name="partner_id" />
+                      <field name="price" />
+                      <field name="state" />
+
+                    </tree>
+                  </field>
                 </group>
               </page>
             </notebook>
