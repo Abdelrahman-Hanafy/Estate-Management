@@ -1,3 +1,9 @@
+"""Estate Management module.
+
+This module provides a system for managing properties, owners, tenants,
+and transactions.
+"""
+
 {
     'name': "Estate Management",
     'version': '1.0',
