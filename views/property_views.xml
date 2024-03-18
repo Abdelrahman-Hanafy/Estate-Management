@@ -100,9 +100,11 @@
     <field name="arch" type="xml">
       <form string="Property">
         <header>
-          <button name="mark_Available" type="object" string="Available" />
-          <button name="mark_Rented" type="object" string="Rented" />
+          <!-- <button name="mark_Rented" type="object" string="Rented" /> -->
+          <button name="mark_Available" type="object" string="Cancel Rent" />
           <button name="mark_Under_Maintenance" type="object" string="Under Maintenance" />
+          <field name="state" widget="statusbar"
+            statusbar_visible="available, offer_received, rented" />
 
         </header>
         <sheet>
@@ -165,9 +167,9 @@
                       <!-- State of the offer. -->
                       <field name="state" />
                       <!-- Button to accept the offer. -->
-                      <button name="accept_offer" string="✔" type="object" class="oe_highlight" />
+                      <button name="accept_offer" string="✔" type="object" />
                       <!-- Button to refuse the offer. -->
-                      <button name="refuse_offer" string="❌" type="object" class="oe_highlight" />
+                      <button name="refuse_offer" string="❌" type="object" />
                     </tree>
                   </field>
                 </group>
