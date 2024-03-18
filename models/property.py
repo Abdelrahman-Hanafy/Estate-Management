@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 
 class Property(models.Model):
@@ -60,18 +60,18 @@ class Property(models.Model):
 
     garden = fields.Boolean(
         string='Garden', help="Whether the property has a garden or not")
-    garden_area = fields.Integer(string='Garden Area (sqm)', default=10,
+    garden_area = fields.Integer(string='Garden Area (sqm)', default=0,
                                  help="The garden area of the property in square meters")
     garden_orientation = fields.Selection([
         ('north', 'North'),
         ('south', 'South'),
         ('east', 'East'),
         ('west', 'West')
-    ], default='north', string='Garden Orientation',
+    ], string='Garden Orientation',
         help="The orientation of the garden of the property")
 
     availability_date = fields.Datetime(string='Availability Date',
-                                        default=lambda _: datetime.now() + timedelta(days=90),
+                                        default=lambda self: self._compute_default_availability_date(),
                                         help="The date from when the property is available")
 
     best_offer = fields.Float(string='Best Offer', compute="_compute_best_offer", store=True,
@@ -93,13 +93,26 @@ class Property(models.Model):
         help="The list of offers for this property"
     )
 
+    def _compute_default_availability_date(self):
+        """
+        Set the default value for the availability date
+        """
+        for record in self:
+            record.availability_date = fields.Datetime.today() + timedelta(days=90)
+
+    @api.onchange("garden")
+    def _onchange_garden(self):
+        """
+        Update the garden area based on the garden value
+        """
+        if self.garden:
+            self.garden_area = 10
+            self.garden_orientation = "north"
+
     @api.depends("width", "height")
     def _compute_size(self):
         """
         Compute the size of the property based on its width and height
-
-        :return: The size of the property
-        :rtype: float
         """
         for record in self:
             record.size = record.width * record.height
@@ -108,19 +121,14 @@ class Property(models.Model):
     def _compute_best_offer(self):
         """
         Compute the best offer for the property based on its offers
-
-        :return: The best offer for the property
-        :rtype: float
         """
         for record in self:
-            record.best_offer = max(record.offers.mapped("price") or [0])
+            record.best_offer = max(record.offers.mapped(
+                "price")) if record.offers else 0
 
     def mark_Available(self):
         """
         Mark the property as Available
-
-        :return: The property state
-        :rtype: str
         """
         for record in self:
             record.state = "available"
@@ -129,9 +137,6 @@ class Property(models.Model):
     def mark_Rented(self):
         """
         Mark the property as Rented
-
-        :return: The property state
-        :rtype: str
         """
         for record in self:
             record.state = "rented"
@@ -140,9 +145,6 @@ class Property(models.Model):
     def mark_Under_Maintenance(self):
         """
         Mark the property as Under Maintenance
-
-        :return: The property state
-        :rtype: str
         """
         for record in self:
             record.state = "under_maintenance"
