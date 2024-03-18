@@ -55,6 +55,9 @@ class Property(models.Model):
     availability_date = fields.Datetime(
         string='Availability Date', default=lambda _: datetime.now() + timedelta(days=90))
 
+    best_offer = fields.Float(
+        string='Best Offer', compute="_compute_best_offer", store=True)
+
     owners = fields.One2many('owner', 'property_id', string="Owners")
     tenant = fields.Many2one('tenant', string='Tenants')
     offers = fields.One2many('property.offer', 'property_id', string="Offers")
@@ -63,6 +66,11 @@ class Property(models.Model):
     def _compute_size(self):
         for record in self:
             record.size = record.width * record.height
+
+    @api.depends("offers")
+    def _compute_best_offer(self):
+        for record in self:
+            record.best_offer = max(record.offers.mapped("price") or [0])
 
     def mark_Available(self):
         for record in self:

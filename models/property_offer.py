@@ -38,4 +38,15 @@ class PropertyOffer(models.Model):
     def _set_date_deadline(self):
         for record in self:
             record.validity = (
-                record.date_deadline - (record.create_date or fields.Datetime.today())).days
+                fields.Datetime.to_datetime(record.date_deadline) - (record.create_date or fields.Datetime.today())).days
+
+    def accept_offer(self):
+        for record in self:
+            record.state = 'accepted'
+            record.property_id.mark_Rented()
+        return True
+
+    def refuse_offer(self):
+        for record in self:
+            record.state = 'refused'
+        return True
