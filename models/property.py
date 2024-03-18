@@ -42,10 +42,12 @@ class Property(models.Model):
 
     # Represents the current state of the property (e.g., available, rented, under maintenance)
     state = fields.Selection([
+        ('new', 'New'),
         ('available', 'Available'),
+        ('offer_received', 'Offer Received'),
         ('rented', 'Rented'),
         ('under_maintenance', 'Under Maintenance')
-    ], default='available', string='State',
+    ], default='new', string='State',
         help="The current state of the property")
 
     bedrooms = fields.Integer(
@@ -97,8 +99,7 @@ class Property(models.Model):
         """
         Set the default value for the availability date
         """
-        for record in self:
-            record.availability_date = fields.Datetime.today() + timedelta(days=90)
+        return fields.Datetime.today() + timedelta(days=90)
 
     @api.onchange("garden")
     def _onchange_garden(self):
@@ -148,4 +149,19 @@ class Property(models.Model):
         """
         for record in self:
             record.state = "under_maintenance"
+        return True
+
+    @api.onchange('offers')
+    def _onchange_has_offers(self):
+        """
+        Update the state of the property based on the offers
+        """
+        self.state = "offer_received" if self.offers else "new"
+
+    def mark_has_offers(self):
+        """
+        Mark all records as having offers.
+        """
+        for record in self:
+            record.state = "offer_received"
         return True
