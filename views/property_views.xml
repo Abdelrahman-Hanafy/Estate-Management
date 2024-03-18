@@ -1,47 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+    This file contains views for the Property model.
+-->
+
 <odoo>
 
-
+  <!-- Search view for property model. -->
+  <!-- This view allows user to filter properties based on their type and price. -->
   <record id="property_view_search" model="ir.ui.view">
     <field name="name">Property.search</field>
     <field name="model">property</field>
     <field name="arch" type="xml">
-      <search>
-        <filter name="residential_property_filter" string="residential"
-          domain="[('property_type', '=', 'residential')]" />
+      <!-- Search view for property model. -->
+      <!-- This view allows user to filter properties based on their type and price. -->
+      <search string="Search Property">
+        <!-- Residential property filter -->
+        <!-- Allows user to filter residential properties. -->
+        <filter name="residential_property_filter"
+          string="Residential" domain="[('property_type', '=', 'residential')]" />
+        <!-- Separator between filters -->
         <separator />
-        <filter name="cheap_property_filter" string="&gt; 10K$" domain="[('price', '&gt;=', 10000)]" />
-        <filter name="cheap_property_filter" string="&lt; 50K$" domain="[('price', '&lt;=', 50000)]" />
+        <!-- Cheap property filter -->
+        <!-- Allows user to filter properties with price greater or equal to 10K$. -->
+        <filter name="cheap_property_filter"
+          string="&gt; 10K$" domain="[('price', '&gt;=', 10000)]" />
+        <!-- Cheap property filter -->
+        <!-- Allows user to filter properties with price less or equal to 50K$. -->
+        <filter name="cheap_property_filter"
+          string="&lt; 50K$" domain="[('price', '&lt;=', 50000)]" />
       </search>
     </field>
   </record>
 
+  <!-- Property Tree View. -->
+  <!-- This view displays properties in a tree format. -->
   <record id="property_view_tree" model="ir.ui.view">
     <field name="name">Property.tree</field>
     <field name="model">property</field>
     <field name="arch" type="xml">
-      <tree>
+      <!-- Property Tree View. -->
+      <!-- This view displays properties in a tree format. -->
+      <tree string="Properties">
+        <!-- Property Name. -->
+        <!-- Displays the name of the property. -->
         <field name="name" />
+        <!-- Property Type. -->
+        <!-- Displays the type of the property. -->
         <field name="property_type" />
+        <!-- Property Price. -->
+        <!-- Displays the price of the property. -->
         <field name="price" />
+        <!-- Property State. -->
+        <!-- Displays the state of the property. -->
         <field name="state" />
+        <!-- Property Availability Date. -->
+        <!-- Displays the availability date of the property. -->
         <field name="availability_date" />
 
+        <!-- Address. -->
+        <!-- Hides the address field by default. -->
         <field name='address' optional='hide' />
+        <!-- Size. -->
+        <!-- Hides the size field by default. -->
         <field name='size' optional='hide' />
+        <!-- Description. -->
+        <!-- Hides the description field by default. -->
         <field name='description' optional='hide' />
+        <!-- Owners. -->
+        <!-- Hides the owners field by default. -->
         <field name='owners' optional='hide' />
+        <!-- Tenant. -->
+        <!-- Hides the tenant field by default. -->
         <field name='tenant' optional='hide' />
       </tree>
     </field>
   </record>
 
+  <!--
+    View for the Property model in form mode.
+
+    This view displays a form to create or edit a Property record.
+    It has a header with three buttons: one for marking the property as available,
+    one for marking it as rented, and one for marking it as under maintenance.
+
+    The form has a notebook with two pages: one for the description of the property
+    and one for the offers made for it.
+
+    The properties' state is displayed in a field and is read-only.
+
+    The address, width, height, size and owners fields are grouped together.
+
+    The offers field is also grouped together and displays a list of offers.
+    Each offer has a button for accepting and one for refusing it.
+  -->
   <record id="property_view_form" model="ir.ui.view">
     <field name="name">Property.form</field>
     <field name="model">property</field>
     <field name="arch" type="xml">
-      <form>
+      <form string="Property">
         <header>
           <button name="mark_Available" type="object" string="Available" />
           <button name="mark_Rented" type="object" string="Rented" />
@@ -74,12 +131,14 @@
             </group>
             <group>
 
-              <field name='owners' widget="many2many_tags" options="{'no_create': True}" />
-              <field name='tenant' />
+              <field name='owners' widget="many2many_tags" options="{'no_create': True}"
+                string="Owners" />
+              <field name='tenant' string="Current Tenant" />
             </group>
 
             <notebook>
               <page string="Description">
+                <!-- Description of the property. -->
                 <group>
                   <field name="description" />
                   <field name="bedrooms" />
@@ -94,14 +153,20 @@
 
                 </group>
               </page>
-              <page string="offers">
+              <page string="Offers">
+                <!-- List of offers for this property. -->
                 <group>
-                  <field name="offers" widget="one2many_list">
+                  <field name="offers" widget="one2many_list" string="Offers">
                     <tree>
+                      <!-- Partner making the offer. -->
                       <field name="partner_id" />
+                      <!-- Price of the offer. -->
                       <field name="price" />
+                      <!-- State of the offer. -->
                       <field name="state" />
+                      <!-- Button to accept the offer. -->
                       <button name="accept_offer" string="✔" type="object" class="oe_highlight" />
+                      <!-- Button to refuse the offer. -->
                       <button name="refuse_offer" string="❌" type="object" class="oe_highlight" />
 
 
@@ -116,9 +181,16 @@
     </field>
   </record>
 
+
+  <!--
+  Action for the Property model.
+  -->
   <record id="property_action" model="ir.actions.act_window">
+    <!-- Name of the action -->
     <field name="name">Property action</field>
+    <!-- Model for the action -->
     <field name="res_model">property</field>
+    <!-- View modes for the action -->
     <field name="view_mode">tree,form</field>
   </record>
 

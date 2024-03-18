@@ -1,26 +1,69 @@
 <?xml version="1.0"?>
 
+<!--
+    Views for the Owner Model
+    ============================
+-->
 <odoo>
-  
 
+
+  <!-- Tree view for Owner Model -->
   <record id="owner_view_tree" model="ir.ui.view">
     <field name="name">Owner.tree</field>
     <field name="model">owner</field>
     <field name="arch" type="xml">
-        <tree >
-            <field name="name"/>
-            <field name="contact_information"/>
-            <field name="ownership_percentage"/>
+      <!--
+            Tree View
+            =========
+        -->
+      <tree string="Owner Tree View">
+        <!--
+                Name Field
+                ==========
+            -->
+        <field name="name"
+          string="Name"
+          type="char"
+          description="Owner's Name">
+        </field>
 
-        </tree>
+        <!--
+                Contact Information Field
+                ========================
+            -->
+        <field name="contact_information"
+          string="Contact Information"
+          type="char"
+          description="Owner's Contact Information">
+        </field>
+
+        <!--
+                Ownership Percentage Field
+                ==========================
+            -->
+        <field name="ownership_percentage"
+          string="Ownership Percentage"
+          type="float"
+          description="Owner's Percentage of Ownership">
+        </field>
+
+      </tree>
     </field>
   </record>
 
+  <!-- Action for Owner Model -->
   <record id="owner_action" model="ir.actions.act_window">
-        <field name="name">Owner action</field>
-        <field name="res_model">owner</field>
-        <field name="view_mode">tree,form</field>
-      </record>
-      
-     
+    <!--
+            Action Definition
+            =================
+        -->
+    <field name="name">Owner action</field>
+    <field name="res_model">owner</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">Create a new Owner</p>
+    </field>
+  </record>
+
+
 </odoo>

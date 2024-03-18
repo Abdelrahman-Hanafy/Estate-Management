@@ -1,48 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+    This file contains the definitions for the Tenant model views.
+-->
+
 <odoo>
+    <!--
+        View for the Tenant tree.
+    -->
     <record id="tenant_view_tree" model="ir.ui.view">
         <field name="name">Tenant.tree</field>
         <field name="model">tenant</field>
         <field name="arch" type="xml">
-            <tree >
-                <field name="name"/>
-                <field name="contact_information"/>
-                <field name="monthly_rent"/>
-                <field name="lease_start_date" optional="hide"/>
-                <field name="lease_end_date" optional="hide"/>
-    
+            <!-- Tree view for the Tenant model -->
+            <tree string="Tenant Tree">
+                <!-- Name field -->
+                <field name="name" />
+                <!-- Contact information field -->
+                <field name="contact_information" />
+                <!-- Monthly rent field -->
+                <field name="monthly_rent" />
+                <!-- Lease start date field -->
+                <field name="lease_start_date" optional="hide" />
+                <!-- Lease end date field -->
+                <field name="lease_end_date" optional="hide" />
             </tree>
         </field>
-      </record>
+    </record>
 
-      <record id="tenant_view_kanban" model="ir.ui.view">
+    <!--
+        View for the Tenant kanban.
+    -->
+    <record id="tenant_view_kanban" model="ir.ui.view">
         <field name="name">Tenant.kanban</field>
         <field name="model">tenant</field>
         <field name="arch" type="xml">
-            <kanban >
+            <!-- Kanban view for the Tenant model -->
+            <kanban string="Tenant Kanban">
+                <!-- Templates for the kanban -->
                 <templates>
+                    <!-- Template for the kanban box -->
                     <t t-name="kanban-box">
                         <div>
+                            <!-- Name field -->
                             <h1>
-                                <field name="name"/>
+                                <field name="name" />
                             </h1>
-                            <p><field name="contact_information"/></p>
-                            <p><field name="monthly_rent"/>$</p>
-                            <p>from: <field name="lease_start_date"/> to: <field name="lease_end_date"/></p>
+                            <!-- Contact information field -->
+                            <p>
+                                <field name="contact_information" />
+                            </p>
+                            <!-- Monthly rent field -->
+                            <p>
+                                <field name="monthly_rent" />$ </p>
+                            <!-- Lease start date field -->
+                            <p> from: <field name="lease_start_date" />
+                                <!-- Lease end date field --> to: <field
+                                    name="lease_end_date" />
+                            </p>
                         </div>
                     </t>
                 </templates>
-    
             </kanban>
         </field>
-      </record>
-    
-      <record id="tenant_action" model="ir.actions.act_window">
-            <field name="name">Tenants action</field>
-            <field name="res_model">tenant</field>
-            <field name="view_mode">tree,form,kanban</field>
-          </record>
-          
-          
+    </record>
+
+    <!--
+        Action for the Tenant model.
+    -->
+    <record id="tenant_action" model="ir.actions.act_window">
+        <!-- Name of the action -->
+        <field name="name">Tenants action</field>
+        <!-- Model for the action -->
+        <field name="res_model">tenant</field>
+        <!-- View modes for the action -->
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
 </odoo>
