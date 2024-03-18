@@ -43,14 +43,16 @@
     <field name="arch" type="xml">
       <form>
         <header>
-          <field name="state" widget="statusbar"
-            statusbar_visible="Available,Rented,Under Maintenance" />
+          <button name="mark_Available" type="object" string="Available" />
+          <button name="mark_Rented" type="object" string="Rented" />
+          <button name="mark_Under_Maintenance" type="object" string="Under Maintenance" />
 
         </header>
         <sheet>
           <h1>
             <field name="name" string="Name" />
           </h1>
+          <field name="state" readonly='1' />
           <group>
 
             <group>

@@ -35,7 +35,7 @@ class Property(models.Model):
         ('available', 'Available'),
         ('rented', 'Rented'),
         ('under_maintenance', 'Under Maintenance')
-    ])
+    ], default='available', string='State')
 
     bedrooms = fields.Integer(string='Bedrooms', default=2)
 
@@ -62,3 +62,18 @@ class Property(models.Model):
     def _compute_size(self):
         for record in self:
             record.size = record.width * record.height
+
+    def mark_Available(self):
+        for record in self:
+            record.state = "available"
+        return True
+
+    def mark_Rented(self):
+        for record in self:
+            record.state = "rented"
+        return True
+
+    def mark_Under_Maintenance(self):
+        for record in self:
+            record.state = "under_maintenance"
+        return True
