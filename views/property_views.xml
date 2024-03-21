@@ -113,13 +113,16 @@
 
         </header>
         <sheet>
+
+
+          <widget name="web_ribbon" title="Under Maintenance"
+            invisible="state != 'under_maintenance'"
+            bg_color="text-bg-warning" />
+
           <h1>
             <field name="name" string="Name" />
           </h1>
-          <h3 invisible="state != 'under_maintenance'">
-            <field name="state" readonly='1'
-              class="d-block p-2 bg-warning mx-auto" />
-          </h3>
+
           <group>
 
             <group>
