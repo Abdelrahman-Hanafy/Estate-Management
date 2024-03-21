@@ -50,16 +50,32 @@ class Property(models.Model):
     ], default='new', string='State',
         help="The current state of the property")
 
+    # The availability date of the property
+    availability_date = fields.Datetime(string='Availability Date',
+                                        default=lambda self: self._compute_default_availability_date(),
+                                        help="The date from when the property is available")
+
+    # The best offer for the property based on its offers
+    best_offer = fields.Float(string='Best Offer', compute="_compute_best_offer", store=True,
+                              help="The best offer for this property")
+
+    # Additional features of the property
+    ########################################################################
+
+    # The number of bedrooms of the property
     bedrooms = fields.Integer(
         string='Bedrooms', default=2, help="The number of bedrooms of the property")
-
+    # The living area of the property
     living_area = fields.Integer(string='Living Area (sqm)',
                                  help="The living area of the property in square meters")
+    # The number of facades of the property
     facades = fields.Integer(
         string='Facades', help="The number of facades of the property")
+    # Whether the property has a garage or not
     garage = fields.Boolean(
         string='Garage', help="Whether the property has a garage or not")
 
+    # The garden features of the property
     garden = fields.Boolean(
         string='Garden', help="Whether the property has a garden or not")
     garden_area = fields.Integer(string='Garden Area (sqm)', default=0,
@@ -72,28 +88,31 @@ class Property(models.Model):
     ], string='Garden Orientation',
         help="The orientation of the garden of the property")
 
-    availability_date = fields.Datetime(string='Availability Date',
-                                        default=lambda self: self._compute_default_availability_date(),
-                                        help="The date from when the property is available")
+    ########################################################################
 
-    best_offer = fields.Float(string='Best Offer', compute="_compute_best_offer", store=True,
-                              help="The best offer for this property")
+    # Start of relational fields
+    ########################################################################
 
+    # The owners of the property
     owners = fields.One2many('owner', 'property_id',
                              string="Owners", help="The owners of the property")
 
+    # The tenant who currently occupies the property
     tenant = fields.Many2one(
         'tenant',
         string='Tenants',
         help="The tenant who currently occupies the property"
     )
 
+    # The offers for the property
     offers = fields.One2many(
         'property.offer',
         'property_id',
         string="Offers",
         help="The list of offers for this property"
     )
+
+    ########################################################################
 
     def _compute_default_availability_date(self):
         """
@@ -109,6 +128,9 @@ class Property(models.Model):
         if self.garden:
             self.garden_area = 10
             self.garden_orientation = "north"
+        else:
+            self.garden_area = 0
+            self.garden_orientation = None
 
     @api.depends("width", "height")
     def _compute_size(self):

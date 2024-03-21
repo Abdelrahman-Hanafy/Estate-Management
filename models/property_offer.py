@@ -11,14 +11,17 @@ class PropertyOffer(models.Model):
         ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
     ]
 
+    # price of the offer
     price = fields.Float(string='Price', required=True,
                          help="Price of the offer in€")
+    # state of the offer
     state = fields.Selection([
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
         ('refused', 'Refused')
     ], default='pending', string='State', help="State of the offer")
 
+    # validity of the offer in days
     validity = fields.Integer(string='Validity (days)',
                               default=7, help="Validity of the offer in days")
 
@@ -28,11 +31,17 @@ class PropertyOffer(models.Model):
         inverse="_set_date_deadline", store=True, help="Deadline of the offer"
     )
 
+    # Start of relational fields
+    ########################################################################
+
+    # The property to rent
     property_id = fields.Many2one(
         'property', string='Property', required=True, help="Property to rent")
+    # The tenant who made the offer
     partner_id = fields.Many2one(
-        'res.partner', string='Partner', required=True, help="Tenant who made the offer"
-    )
+        'res.partner', string='Partner', required=True, help="Tenant who made the offer")
+
+    ########################################################################
 
     @api.depends('validity', 'create_date')
     def _compute_date_deadline(self):
