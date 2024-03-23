@@ -11,6 +11,8 @@ class PropertyOffer(models.Model):
         ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
     ]
 
+    # name of the offer
+    name = fields.Char(string='Name')
     # price of the offer
     price = fields.Float(string='Price', required=True,
                          help="Price of the offer in€")
@@ -67,7 +69,26 @@ class PropertyOffer(models.Model):
         for record in self:
             record.state = 'accepted'
             record.property_id.mark_Rented()
-        return True
+
+        # Get the target form view ID (replace with your actual view ID)
+        target_form_view_id = self.env.ref(
+            'Estate_Management.contract_management_view_form').id
+
+        data_to_pass = {'offer_id': self.id,
+                        'name': f"constract for {self.name}", }
+
+        # Prepare form view action
+        form_view_action = {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'estate.contract.management',
+            'res_id': False,  # Pass the current record's ID to the target form
+            'views': [(target_form_view_id, 'form')],
+            'context': data_to_pass,  # Optional: Pass additional context if needed
+        }
+
+        return form_view_action
 
     def refuse_offer(self):
         """
@@ -76,3 +97,11 @@ class PropertyOffer(models.Model):
         for record in self:
             record.state = 'refused'
         return True
+
+    @api.onchange('property_id', 'partner_id')
+    def _set_offer_name(self):
+        """
+        Set the name of the offer based on the property and tenant.
+        """
+        for record in self:
+            record.name = f"{record.property_id.name} - {record.partner_id.name}"
