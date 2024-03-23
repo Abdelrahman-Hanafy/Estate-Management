@@ -18,7 +18,7 @@ class ContractManagement(models.Model):
     start_date = fields.Date(string="Start Date", default=fields.Date.today(),
                              help="Start date of the contract")
     end_date = fields.Date(string="End Date", compute="_compute_end_date",
-                           help="End date of the contract")
+                           help="End date of the contract", store=True)
 
     # Start of relational fields
     ########################################################################
