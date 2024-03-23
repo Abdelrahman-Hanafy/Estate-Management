@@ -28,7 +28,7 @@
                     </group>
                     <notebook>
                         <page string="Standard Clauses ">
-                            <field name="clauses_ids" widget="one2many_list">
+                            <field name="clauses_ids">
                                 <tree>
 
                                     <field name="description" />
@@ -42,16 +42,31 @@
         </field>
     </record>
 
-    <!-- <record id="contract_management_calendar" model="ir.ui.view">
+    <!-- 
+        While try to open the calender View this error appears
+        =====================================================
+        UncaughtPromiseError > OwlError
+        Uncaught Promise > An error occured in the owl lifecycle (see this Error's "cause" property)
+        OwlError: An error occured in the owl lifecycle (see this Error's "cause" property)
+            OwlError@http://localhost:8069/web/assets/54e8ace/web.assets_web.min.js:684:1
+            handleError@http://localhost:8069/web/assets/54e8ace/web.assets_web.min.js:916:101
+            handleError@http://localhost:8069/web/assets/54e8ace/web.assets_web.min.js:1542:29
+            initiateRender@http://localhost:8069/web/assets/54e8ace/web.assets_web.min.js:1006:19
+
+        Caused by: AssetsLoadingError: The loading of /web/static/lib/fullcalendar/core/main.js failed
+            AssetsLoadingError@http://localhost:8069/web/assets/54e8ace/web.assets_web.min.js:1602:512
+            loadJS/</<@http://localhost:8069/web/assets/54e8ace/web.assets_web.min.js:1604:270
+     -->
+    <record id="contract_management_calendar" model="ir.ui.view">
         <field name="name">Contract Management.calendar</field>
         <field name="model">estate.contract.management</field>
         <field name="arch" type="xml">
-            <calendar string="Contracts" create="0" mode="month" quick_create="0">
+            <calendar string="Contracts" mode="month"
+                date_start="start_date" date_stop="end_date">
                 <field name="name" />
-                <field name="duration" />
             </calendar>
         </field>
-    </record> -->
+    </record>
 
     <record id="contract_management_action" model="ir.actions.act_window">
         <!-- Name of the action -->
