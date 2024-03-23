@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!-- <record id="owner_view_tree" model="ir.ui.view">
+
+    </record> -->
+
+    <record id="contract_management_action" model="ir.actions.act_window">
+        <!-- Name of the action -->
+        <field name="name">Contract Management action</field>
+        <!-- Model for the action -->
+        <field name="res_model">estate.contract.management</field>
+        <!-- View modes for the action -->
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

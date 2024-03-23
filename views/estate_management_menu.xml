@@ -68,4 +68,13 @@
         sequence="30"
     />
 
+    <menuitem
+        id="contract_management_menu"
+        name="Contracts"
+        parent='estate_management_root_menu'
+        action='contract_management_action'
+        sequence="40"
+    />
+
+
 </odoo>

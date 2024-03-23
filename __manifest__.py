@@ -11,11 +11,12 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
-        'views/estate_management_menu.xml',
         'views/owner_views.xml',
         'views/tenant_views.xml',
         'views/property_views.xml',
         'views/transaction_view.xml',
+        'views/contract_views.xml',
+        'views/estate_management_menu.xml',
 
     ],
     'application': True,
