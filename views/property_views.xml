@@ -15,20 +15,15 @@
       <!-- Search view for property model. -->
       <!-- This view allows user to filter properties based on their type and price. -->
       <search string="Search Property">
-        <!-- Residential property filter -->
-        <!-- Allows user to filter residential properties. -->
-        <filter name="residential_property_filter"
-          string="Residential" domain="[('property_type', '=', 'residential')]" />
+        <!-- Allows user to filter properties with garden. -->
+        <filter name="has_garden_property_filter"
+          string="Has Garden" domain="[('garden', '=', True)]" />
         <!-- Separator between filters -->
         <separator />
-        <!-- Cheap property filter -->
-        <!-- Allows user to filter properties with price greater or equal to 10K$. -->
-        <filter name="cheap_property_filter"
-          string="&gt; 10K$" domain="[('price', '&gt;=', 10000)]" />
-        <!-- Cheap property filter -->
-        <!-- Allows user to filter properties with price less or equal to 50K$. -->
-        <filter name="cheap_property_filter"
-          string="&lt; 50K$" domain="[('price', '&lt;=', 50000)]" />
+        <!-- Price property filter -->
+        <!-- Allows user to filter properties with price between 10K to 50K$. -->
+        <filter name="mid_price_property_filter"
+          string="10K - 50K$" domain="[('price', '&lt;=', 50000), ('price', '&gt;=', 10000)]" />
       </search>
     </field>
   </record>

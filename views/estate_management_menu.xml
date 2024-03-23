@@ -20,7 +20,7 @@
         id="client_menu"
         name="Client"
         parent='estate_management_root_menu'
-        sequence="10"
+        sequence="20"
     />
     <!--
         Menu item for the owner model.
@@ -54,7 +54,7 @@
         name="Property"
         parent='estate_management_root_menu'
         action='property_action'
-        sequence="20"
+        sequence="10"
     />
     <!--
     Menu item for the transaction model.
