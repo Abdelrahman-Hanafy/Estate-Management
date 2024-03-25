@@ -6,6 +6,7 @@ class Transaction(models.Model):
     This class represents a transaction in the estate management system.
     """
     _name = 'transaction'
+    _description = 'Transaction'
 
     date = fields.Date(string='Date', help='Date of the transaction.')
 

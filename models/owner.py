@@ -10,6 +10,7 @@ class Owner(models.Model):
     """
 
     _name = "owner"
+    _description = "Owner"
 
     name = fields.Char(string='Name')
     contact_information = fields.Char(string='Phone')

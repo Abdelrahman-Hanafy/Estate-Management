@@ -10,6 +10,8 @@ class Property(models.Model):
     The state of the property is one of available, rented or under maintenance.
     """
     _name = "property"
+    _description = "Property"
+
     _sql_constraints = [
         ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
     ]

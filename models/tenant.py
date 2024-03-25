@@ -10,6 +10,7 @@ class Tenant(models.Model):
     and their monthly rent.
     """
     _name = 'tenant'
+    _description = 'Tenant'
 
     name = fields.Char(string='Name',
                        help='The name of the tenant.')

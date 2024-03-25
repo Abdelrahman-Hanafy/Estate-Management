@@ -7,6 +7,8 @@ class PropertyOffer(models.Model):
     Offer to rent a property.
     """
     _name = 'property.offer'
+    _description = 'Property Offer'
+
     _sql_constraints = [
         ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
     ]
