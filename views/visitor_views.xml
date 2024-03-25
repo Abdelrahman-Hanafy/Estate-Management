@@ -51,9 +51,9 @@
                 <field name="state" />
                 <field name="visit_time" />
 
-                <button name="action_approve" string="✔" type="object"
+                <button name="action_approve" icon='fa-check' type="object"
                     invisible="state != 'pending'" />
-                <button name="action_decline" string="❌" type="object"
+                <button name="action_decline" icon='fa-times' type="object"
                     invisible="state != 'pending'" />
             </tree>
 
