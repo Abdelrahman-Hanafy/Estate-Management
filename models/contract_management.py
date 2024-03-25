@@ -10,6 +10,7 @@ class ContractManagement(models.Model):
     """
     _name = 'contract.management'
     _description = 'Contract Management'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(
         string="Name", default=lambda self: self.env.context.get('name', ''),
@@ -26,7 +27,7 @@ class ContractManagement(models.Model):
 
     clauses_ids = fields.Many2many(
         'contract.clause', string="Clauses",
-        help="List of clauses included in the contract")
+        help="List of clauses included in the contract", tracking=True)
     offer_id = fields.Many2one('property.offer', string="Offer",
                                default=lambda self: self.env.context.get(
                                    'offer_id', None),
@@ -83,9 +84,3 @@ class Clause(models.Model):
     description = fields.Text(
         'Description',  # Description of the clause
         help="Description of the clause, includes all the details needed")
-
-    # Start of relational fields
-    ########################################################################
-    contract_id = fields.Many2many(
-        'contract.management', string="Contract",  # Contract the clause belongs to
-        help="Contract the clause is included in")
