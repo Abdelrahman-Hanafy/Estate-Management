@@ -40,8 +40,11 @@ class PropertyOffer(models.Model):
     property_id = fields.Many2one(
         'property', string='Property', required=True, help="Property to rent")
     # The tenant who made the offer
-    partner_id = fields.Many2one(
-        'res.partner', string='Partner', required=True, help="Tenant who made the offer")
+    # partner_id = fields.Many2one(
+    #     'res.partner', string='Partner', required=True, help="Tenant who made the offer")
+
+    tenant_id = fields.Many2one(
+        'tenant', string='Tenant', required=True, help="Tenant who made the offer")
 
     ########################################################################
 
@@ -69,20 +72,21 @@ class PropertyOffer(models.Model):
         for record in self:
             record.state = 'accepted'
             record.property_id.mark_Rented()
+            record.property_id.tenant_id = record.tenant_id
 
         # Get the target form view ID (replace with your actual view ID)
         target_form_view_id = self.env.ref(
             'Estate_Management.contract_management_view_form').id
 
         data_to_pass = {'offer_id': self.id,
-                        'name': f"constract for {self.name}", }
+                        'name': f"contract for {self.name}", }
 
         # Prepare form view action
         form_view_action = {
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'estate.contract.management',
+            'res_model': 'contract.management',
             'res_id': False,  # Pass the current record's ID to the target form
             'views': [(target_form_view_id, 'form')],
             'context': data_to_pass,  # Optional: Pass additional context if needed
@@ -98,10 +102,10 @@ class PropertyOffer(models.Model):
             record.state = 'refused'
         return True
 
-    @api.onchange('property_id', 'partner_id')
+    @api.onchange('property_id', 'tenant_id')
     def _set_offer_name(self):
         """
         Set the name of the offer based on the property and tenant.
         """
         for record in self:
-            record.name = f"{record.property_id.name} - {record.partner_id.name}"
+            record.name = f"{record.property_id.name} - {record.tenant_id.name}"

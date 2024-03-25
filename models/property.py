@@ -94,18 +94,18 @@ class Property(models.Model):
     ########################################################################
 
     # The owners of the property
-    owners = fields.One2many('owner', 'property_id',
-                             string="Owners", help="The owners of the property")
+    owner_ids = fields.One2many('owner', 'property_id',
+                                string="Owners", help="The owners of the property")
 
     # The tenant who currently occupies the property
-    tenant = fields.Many2one(
+    tenant_id = fields.Many2one(
         'tenant',
         string='Tenants',
         help="The tenant who currently occupies the property"
     )
 
     # The offers for the property
-    offers = fields.One2many(
+    offer_ids = fields.One2many(
         'property.offer',
         'property_id',
         string="Offers",
@@ -147,14 +147,14 @@ class Property(models.Model):
         for record in self:
             record.size = record.width * record.height
 
-    @api.depends("offers")
+    @api.depends("offer_ids")
     def _compute_best_offer(self):
         """
         Compute the best offer for the property based on its offers
         """
         for record in self:
-            record.best_offer = max(record.offers.mapped(
-                "price")) if record.offers else 0
+            record.best_offer = max(record.offer_ids.mapped(
+                "price")) if record.offer_ids else 0
 
     def mark_Available(self):
         """
@@ -180,12 +180,12 @@ class Property(models.Model):
             record.state = "under_maintenance"
         return True
 
-    @api.onchange('offers')
+    @api.onchange('offer_ids')
     def _onchange_has_offers(self):
         """
         Update the state of the property based on the offers
         """
-        self.state = "offer_received" if self.offers else "new"
+        self.state = "offer_received" if self.offer_ids else "new"
 
     def mark_has_offers(self):
         """
