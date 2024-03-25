@@ -38,3 +38,18 @@ class Visitor(models.Model):
 
     property_id = fields.Many2one('property', string='Property',
                                   help="The property visited by the visitor")
+
+    def action_submit(self):
+        self.state = 'pending'
+
+    def action_approve(self):
+        self.state = 'approved'
+
+    def action_decline(self):
+        self.state = 'declined'
+
+    def action_cancel(self):
+        self.state = 'canceled'
+
+    def action_done(self):
+        self.state = 'done'
