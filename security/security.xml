@@ -7,11 +7,16 @@
 
     <record model="res.groups" id="estate_management_manager">
         <field name="name">Manager Role</field>
-        <field name="category_id" ref="Estate_Management.estate_management_category"/>
+        <field name="category_id" ref="Estate_Management.estate_management_category" />
+    </record>
+
+    <record model="res.groups" id="estate_management_security">
+        <field name="name">Security Role</field>
+        <field name="category_id" ref="Estate_Management.estate_management_category" />
     </record>
 
     <record model="res.groups" id="estate_management_user">
         <field name="name">User Role</field>
-        <field name="category_id" ref="Estate_Management.estate_management_category"/>
+        <field name="category_id" ref="Estate_Management.estate_management_category" />
     </record>
 </odoo>
