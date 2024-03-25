@@ -15,12 +15,6 @@ class Tenant(models.Model):
                        help='The name of the tenant.')
     contact_information = fields.Char(string='Phone',
                                       help='The contact information of the tenant.')
-    lease_start_date = fields.Date(string='St_date',
-                                   help='The start date of the lease.')
-    lease_end_date = fields.Date(string='End_date',
-                                 help='The end date of the lease.')
-    monthly_rent = fields.Integer(string='Rent',
-                                  help='The monthly rent of the tenant.')
 
     _sql_constraints = [
         ('phone_number_length_check', "CHECK (contact_information ~ '^\\d{11}$')",

@@ -18,12 +18,6 @@
                 <field name="name" />
                 <!-- Contact information field -->
                 <field name="contact_information" />
-                <!-- Monthly rent field -->
-                <field name="monthly_rent" />
-                <!-- Lease start date field -->
-                <field name="lease_start_date" optional="hide" />
-                <!-- Lease end date field -->
-                <field name="lease_end_date" optional="hide" />
             </tree>
         </field>
     </record>
@@ -50,14 +44,7 @@
                             <p>
                                 <field name="contact_information" />
                             </p>
-                            <!-- Monthly rent field -->
-                            <p>
-                                <field name="monthly_rent" />$ </p>
-                            <!-- Lease start date field -->
-                            <p> from: <field name="lease_start_date" />
-                                <!-- Lease end date field --> to: <field
-                                    name="lease_end_date" />
-                            </p>
+
                         </div>
                     </t>
                 </templates>
