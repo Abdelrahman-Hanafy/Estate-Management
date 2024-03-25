@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
+from collections import Counter
 
 
 class ContractManagement(models.Model):
@@ -35,6 +36,9 @@ class ContractManagement(models.Model):
     ########################################################################
 
     avg_duration = fields.Integer(compute="_compute_avg_duration")
+    most_used_clause_name = fields.Char(
+        compute="_compute_most_used_clause_name"
+    )
 
     @api.depends('start_date', 'duration')
     def _compute_end_date(self):
@@ -52,6 +56,19 @@ class ContractManagement(models.Model):
         for rec in self:
             rec.avg_duration = value
 
+    @api.depends('clauses_ids')
+    def _compute_most_used_clause_name(self):
+        clause_counts = Counter()
+        for rec in self:
+            clause_counts.update(rec.clauses_ids.mapped('name'))
+
+        # Find clause with the highest count (handle ties)
+        most_used_clause = clause_counts.most_common(1)
+
+        for rec in self:
+            # Store results
+            rec.most_used_clause_name = most_used_clause[0][0] if most_used_clause else None
+
 
 class Clause(models.Model):
     """
@@ -67,6 +84,8 @@ class Clause(models.Model):
         'Description',  # Description of the clause
         help="Description of the clause, includes all the details needed")
 
+    # Start of relational fields
+    ########################################################################
     contract_id = fields.Many2many(
         'contract.management', string="Contract",  # Contract the clause belongs to
         help="Contract the clause is included in")

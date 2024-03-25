@@ -7,6 +7,7 @@
                 <div class="page">
                     <h2>Report title</h2>
                     <p>Avg duration is <span t-field="o.avg_duration" /></p>
+                    <p>Most used Cluse is <span t-field="o.most_used_clause_name" /></p>
                 </div>
             </t>
         </t>
