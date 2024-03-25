@@ -213,13 +213,5 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <record id="property_document_action" model="ir.actions.act_window">
-    <!-- Name of the action -->
-    <field name="name">Property Document action</field>
-    <!-- Model for the action -->
-    <field name="res_model">property.document</field>
-    <!-- View modes for the action -->
-    <field name="view_mode">tree,form</field>
-  </record>
 
 </odoo>

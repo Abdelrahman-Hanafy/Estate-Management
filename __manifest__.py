@@ -14,6 +14,7 @@
         'views/owner_views.xml',
         'views/tenant_views.xml',
         'views/property_views.xml',
+        'views/property_document.xml',
         'views/transaction_view.xml',
         'views/contract_views.xml',
         'views/estate_management_menu.xml',

@@ -53,8 +53,21 @@
         id="property_menu"
         name="Property"
         parent='estate_management_root_menu'
+        sequence="10"
+    />
+    <menuitem
+        id="properties_menu"
+        name="Property"
+        parent='property_menu'
         action='property_action'
         sequence="10"
+    />
+    <menuitem
+        id="property_document_menu"
+        name="Documents"
+        parent='property_menu'
+        action='property_document_action'
+        sequence="20"
     />
     <!--
     Menu item for the transaction model.
