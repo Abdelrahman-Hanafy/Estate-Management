@@ -25,7 +25,7 @@ class ContractManagement(models.Model):
     ########################################################################
 
     clauses_ids = fields.Many2many(
-        'contract.clause', string="Clauses",
+        'contract.clause', string="Clauses", default=lambda self: self._add_standard_clause(),
         help="List of clauses included in the contract", tracking=True)
     offer_id = fields.Many2one('property.offer', string="Offer",
                                help="Offer related to the contract")
@@ -73,6 +73,12 @@ class ContractManagement(models.Model):
             # Store results
             rec.most_used_clause_name = most_used_clause[0][0] if most_used_clause else None
 
+    def _add_standard_clause(self):
+        std_clause = self.env['contract.clause'].search([
+            ('clause_type', '=', 'standard')
+        ])
+        return std_clause
+
 
 class Clause(models.Model):
     """
@@ -87,3 +93,9 @@ class Clause(models.Model):
     description = fields.Text(
         'Description',  # Description of the clause
         help="Description of the clause, includes all the details needed")
+    clause_type = fields.Selection(
+        [
+            ('standard', 'Standard'),
+            ('custom', 'Custom')
+        ]
+    )

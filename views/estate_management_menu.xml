@@ -92,8 +92,21 @@
         id="contract_management_menu"
         name="Contracts"
         parent='estate_management_root_menu'
-        action='contract_management_action'
         sequence="40"
+    />
+    <menuitem
+        id="contract_menu"
+        name="Contracts"
+        parent='contract_management_menu'
+        action='contract_management_action'
+        sequence="10"
+    />
+    <menuitem
+        id="contract_clause_menu"
+        name="Clauses"
+        parent='contract_management_menu'
+        action='contract_management_clause_action'
+        sequence="20"
     />
 
 
