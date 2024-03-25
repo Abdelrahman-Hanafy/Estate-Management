@@ -17,6 +17,7 @@
         'views/property_views.xml',
         'views/property_document.xml',
         'views/transaction_view.xml',
+        'views/report_contract.xml',
         'views/contract_views.xml',
         'views/estate_management_menu.xml',
 
