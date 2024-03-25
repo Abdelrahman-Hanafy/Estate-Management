@@ -6,7 +6,7 @@
             <t t-foreach="docs" t-as="o">
                 <div class="page">
                     <h2>Report title</h2>
-                    <p>This object's name is <span t-field="o.name" /></p>
+                    <p>Avg duration is <span t-field="o.avg_duration" /></p>
                 </div>
             </t>
         </t>
