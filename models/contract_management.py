@@ -12,9 +12,8 @@ class ContractManagement(models.Model):
     _description = 'Contract Management'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(
-        string="Name", default=lambda self: self.env.context.get('name', ''),
-        help="Name of the contract")
+    name = fields.Char(string="Name", compute="_compute_name", store=True,
+                       help="Name of the contract")
     duration = fields.Integer(string="Duration in Months", default=1,
                               help="Duration of the contract in months")
     start_date = fields.Date(string="Start Date", default=fields.Date.today(),
@@ -29,8 +28,6 @@ class ContractManagement(models.Model):
         'contract.clause', string="Clauses",
         help="List of clauses included in the contract", tracking=True)
     offer_id = fields.Many2one('property.offer', string="Offer",
-                               default=lambda self: self.env.context.get(
-                                   'offer_id', None),
                                help="Offer related to the contract")
 
     # Start of Report fields
@@ -40,6 +37,12 @@ class ContractManagement(models.Model):
     most_used_clause_name = fields.Char(
         compute="_compute_most_used_clause_name"
     )
+
+    @api.depends('offer_id')
+    def _compute_name(self):
+
+        for rec in self:
+            rec.name = f'Contract for {rec.offer_id.name}'
 
     @api.depends('start_date', 'duration')
     def _compute_end_date(self):

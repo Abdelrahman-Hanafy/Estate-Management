@@ -79,25 +79,26 @@ class PropertyOffer(models.Model):
             record.property_id.mark_Rented()
             record.property_id.tenant_id = record.tenant_id
 
-        # Get the target form view ID (replace with your actual view ID)
-        target_form_view_id = self.env.ref(
-            'Estate_Management.contract_management_view_form').id
+        return True
+        # # Get the target form view ID (replace with your actual view ID)
+        # target_form_view_id = self.env.ref(
+        #     'Estate_Management.contract_management_view_form').id
 
-        data_to_pass = {'offer_id': self.id,
-                        'name': f"contract for {self.name}", }
+        # data_to_pass = {'offer_id': self.id,
+        #                 'name': f"contract for {self.name}", }
 
-        # Prepare form view action
-        form_view_action = {
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'contract.management',
-            'res_id': False,  # Pass the current record's ID to the target form
-            'views': [(target_form_view_id, 'form')],
-            'context': data_to_pass,  # Optional: Pass additional context if needed
-        }
+        # # Prepare form view action
+        # form_view_action = {
+        #     'type': 'ir.actions.act_window',
+        #     'view_type': 'form',
+        #     'view_mode': 'form',
+        #     'res_model': 'contract.management',
+        #     'res_id': False,  # Pass the current record's ID to the target form
+        #     'views': [(target_form_view_id, 'form')],
+        #     'context': data_to_pass,  # Optional: Pass additional context if needed
+        # }
 
-        return form_view_action
+        # return form_view_action
 
     def refuse_offer(self):
         """

@@ -16,7 +16,7 @@
                     </h1>
                     <group>
                         <group>
-                            <field name="offer_id" string="Offer" readonly='1' />
+                            <field name="offer_id" string="Offer" />
 
                         </group>
                         <group>
