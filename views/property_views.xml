@@ -24,6 +24,11 @@
         <!-- Allows user to filter properties with price between 10K to 50K$. -->
         <filter name="mid_price_property_filter"
           string="10K - 50K$" domain="[('price', '&lt;=', 50000), ('price', '&gt;=', 10000)]" />
+
+        <group expand="0" string="Group By">
+          <filter name="group_by_type" string="Type" context="{'group_by': 'property_type'}" />
+        </group>
+
       </search>
     </field>
   </record>
