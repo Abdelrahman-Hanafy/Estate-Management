@@ -44,6 +44,13 @@
         action='tenant_action'
         sequence="20"
     />
+    <menuitem
+        id="visitor_menu_item"
+        name="Visitors"
+        parent='client_menu'
+        action='visitor_action'
+        sequence="30"
+    />
 
     <!--
     Menu item for the property model.

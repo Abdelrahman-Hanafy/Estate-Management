@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+
+    <record id="visitor_action" model="ir.actions.act_window">
+        <!-- Name of the action -->
+        <field name="name">Visitor action</field>
+        <!-- Model for the action -->
+        <field name="res_model">property.visitor</field>
+        <!-- View modes for the action -->
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

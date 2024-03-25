@@ -13,6 +13,7 @@
         'security/ir.model.access.csv',
         'views/owner_views.xml',
         'views/tenant_views.xml',
+        'views/visitor_views.xml',
         'views/property_views.xml',
         'views/property_document.xml',
         'views/transaction_view.xml',
