@@ -48,6 +48,9 @@ class PropertyOffer(models.Model):
     tenant_id = fields.Many2one(
         'tenant', string='Tenant', required=True, help="Tenant who made the offer")
 
+    contract_id = fields.One2many(
+        'contract.management', 'offer_id', string='Contract',
+    )
     ########################################################################
 
     @api.depends('validity', 'create_date')

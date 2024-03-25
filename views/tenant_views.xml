@@ -52,6 +52,31 @@
         </field>
     </record>
 
+    <record id="tenant_view_form" model="ir.ui.view">
+        <field name="name">Tenant.kanban</field>
+        <field name="model">tenant</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </h1>
+                    <group>
+                        <field name="contact_information" />
+                        <field name="offer_ids">
+                            <tree>
+                                <field name="property_id" />
+                                <field name="contract_id" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <!--
         Action for the Tenant model.
     -->
