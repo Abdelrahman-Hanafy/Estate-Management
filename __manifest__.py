@@ -7,6 +7,7 @@
     'description': """
     Description text
     """,
+    'license': 'LGPL-3',
     # data files always loaded at installation
     'data': [
         'security/security.xml',
