@@ -112,6 +112,13 @@ class Property(models.Model):
         help="The list of offers for this property"
     )
 
+    documents_ids = fields.One2many(
+        'property.document',
+        'property_id',
+        string="Documents",
+        help="The list of documents for this property"
+    )
+
     ########################################################################
 
     def _compute_default_availability_date(self):
@@ -187,3 +194,12 @@ class Property(models.Model):
         for record in self:
             record.state = "offer_received"
         return True
+
+
+class PropertyDocument(models.Model):
+    _name = 'property.document'
+    _description = 'Property Document'
+
+    name = fields.Char(string='Name')
+    property_id = fields.Many2one('property', string='Property')
+    document = fields.Binary(string='Document')
