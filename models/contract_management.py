@@ -27,8 +27,10 @@ class ContractManagement(models.Model):
     clauses_ids = fields.Many2many(
         'contract.clause', string="Clauses", default=lambda self: self._add_standard_clause(),
         help="List of clauses included in the contract", tracking=True)
+
     offer_id = fields.Many2one('property.offer', string="Offer",
                                help="Offer related to the contract")
+    price = fields.Float(string="Price", related='offer_id.price')
 
     # Start of Report fields
     ########################################################################
