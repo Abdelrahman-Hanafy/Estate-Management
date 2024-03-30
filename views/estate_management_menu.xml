@@ -102,11 +102,18 @@
         sequence="10"
     />
     <menuitem
+        id="agreement_menu"
+        name="Agreements"
+        parent='contract_management_menu'
+        action='lease_agreement_action'
+        sequence="20"
+    />
+    <menuitem
         id="contract_clause_menu"
         name="Clauses"
         parent='contract_management_menu'
         action='contract_management_clause_action'
-        sequence="20"
+        sequence="30"
     />
 
 

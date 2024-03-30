@@ -1,5 +1,4 @@
 from odoo import models, fields, api
-from dateutil.relativedelta import relativedelta
 from collections import Counter
 
 
@@ -14,12 +13,6 @@ class ContractManagement(models.Model):
 
     name = fields.Char(string="Name", compute="_compute_name", store=True,
                        help="Name of the contract")
-    duration = fields.Integer(string="Duration in Months", default=1,
-                              help="Duration of the contract in months")
-    start_date = fields.Date(string="Start Date", default=fields.Date.today(),
-                             help="Start date of the contract")
-    end_date = fields.Date(string="End Date", compute="_compute_end_date",
-                           help="End date of the contract", store=True)
 
     # Start of relational fields
     ########################################################################
@@ -28,9 +21,15 @@ class ContractManagement(models.Model):
         'contract.clause', string="Clauses", default=lambda self: self._add_standard_clause(),
         help="List of clauses included in the contract", tracking=True)
 
-    offer_id = fields.Many2one('property.offer', string="Offer",
-                               help="Offer related to the contract")
-    price = fields.Float(string="Price", related='offer_id.price')
+    agreement_id = fields.Many2one(
+        'lease.agreement', string="Agreement", help="Agreement related to the contract")
+    duration = fields.Integer(string="Duration in Months", related='agreement_id.duration',
+                              help="Duration of the contract in months")
+    start_date = fields.Date(string="Start Date", related='agreement_id.start_date',
+                             help="Start date of the contract")
+    end_date = fields.Date(string="End Date", related='agreement_id.end_date',
+                           help="End date of the contract")
+    price = fields.Float(string="Price", related='agreement_id.price')
 
     # Start of Report fields
     ########################################################################
@@ -40,18 +39,11 @@ class ContractManagement(models.Model):
         compute="_compute_most_used_clause_name"
     )
 
-    @api.depends('offer_id')
+    @api.depends('agreement_id')
     def _compute_name(self):
 
         for rec in self:
-            rec.name = f'Contract for {rec.offer_id.name}'
-
-    @api.depends('start_date', 'duration')
-    def _compute_end_date(self):
-
-        for rec in self:
-            rec.end_date = rec.start_date + \
-                relativedelta(months=rec.duration)
+            rec.name = f'Contract for {rec.agreement_id.name}'
 
     @api.depends('duration')
     def _compute_avg_duration(self):

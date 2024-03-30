@@ -16,7 +16,7 @@
                     </h1>
                     <group>
                         <group>
-                            <field name="offer_id" string="Offer" />
+                            <field name="agreement_id" string="Agreement" />
                             <field name="price" />
                         </group>
                         <group>

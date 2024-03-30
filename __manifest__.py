@@ -22,8 +22,9 @@
         'views/property_document.xml',
         'views/transaction_view.xml',
         'views/report_contract.xml',
-        'views/contract_views.xml',
+        'views/agreement_views.xml',
         'views/contract_clause.xml',
+        'views/contract_views.xml',
 
         'views/estate_management_menu.xml',
 
