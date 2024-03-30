@@ -121,6 +121,10 @@ class Property(models.Model):
         help="The list of documents for this property"
     )
 
+    maintenance_ids = fields.One2many(
+        'property.maintanance', 'property_id', string="Maintenance",
+    )
+
     ########################################################################
 
     def _compute_default_availability_date(self):

@@ -2,27 +2,55 @@
 
 <odoo>
 
-    <record id="Maintanance_view_tree" model="ir.ui.view">
-        <field name="name">Maintanance.tree</field>
+    <record id="Maintanance_view_form" model="ir.ui.view">
+        <field name="name">Maintanance.form</field>
         <field name="model">property.maintanance</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name" />
-                <field name="maintenance_type" />
-            </tree>
+            <form>
+                <sheet>
+
+                    <group>
+
+                        <field name="cost" string="Cost" />
+                        <field name="start_date" string="Start Date" />
+                        <field name="duration" string="Duration" />
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
     <record id="Maintanance_list" model="ir.actions.act_window">
         <field name="name">Maintanance Tree</field>
         <field name="res_model">property.maintanance</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="Maintanance_view_form"></field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="Maintanance_view_form2" model="ir.ui.view">
+        <field name="name">Maintanance.form</field>
+        <field name="model">property.maintanance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+
+                        <field name="name" string="Name" />
+                        <field name="maintenance_type" string="Type" />
+                        <field name="description" string="Description" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
     </record>
 
     <record id="Maintanance_the_wizard" model="ir.actions.act_window">
         <field name="name">Maintanance Request</field>
         <field name="res_model">property.maintanance</field>
         <field name="view_mode">form</field>
+        <field name="view_id" ref="Maintanance_view_form2"></field>
         <field name="target">new</field>
     </record>
 </odoo>
