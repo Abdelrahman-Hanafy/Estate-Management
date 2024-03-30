@@ -15,4 +15,5 @@ class PropertyMaintanance(models.Model):
 
     description = fields.Text(string='Description')
 
-    property_id = fields.Many2one('property', string='Property')
+    property_id = fields.Many2one(
+        'property', string='Property', default=lambda self: self.env.context.get('property_id', None))

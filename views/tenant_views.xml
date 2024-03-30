@@ -66,13 +66,15 @@
                     <!-- <field name="offer_ids"> -->
                     <group>
                         <field name="contact_information" />
-                        <field name="property_id">
+                        <field name="property_id" widgets="section_and_note_one2many" mode="tree">
                             <tree>
+                                <field name="id" invisible='1' optional='hide' />
                                 <field name="name" />
                                 <field name="state" />
-                                <button name="mark_Under_Maintenance" type="object"
+                                <button name="Estate_Management.Maintanance_the_wizard"
+                                    type="action"
                                     title="Start Maintenance" icon="fa-wrench"
-                                    invisible="state == 'under_maintenance'" />
+                                    context="{'property_id': id}" />
                             </tree>
                         </field>
                     </group>
