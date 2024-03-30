@@ -22,6 +22,8 @@ class Tenant(models.Model):
 
     offer_ids = fields.One2many('property.offer', 'tenant_id', string='Offers')
 
+    property_id = fields.One2many('property', 'tenant_id', string='Property')
+
     _sql_constraints = [
         ('phone_number_length_check', "CHECK (contact_information ~ '^\\d{11}$')",
          'Checks if the contact information is exactly 11 digits long.')

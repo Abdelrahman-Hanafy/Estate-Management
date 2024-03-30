@@ -105,7 +105,7 @@
             invisible="state == 'new'" />
           <button name="mark_Under_Maintenance" type="object" string="Start Maintenance"
             invisible="state == 'under_maintenance'" />
-          <button name="mark_Available" type="object" string="End Maintenance"
+          <button name="mark_Rented" type="object" string="End Maintenance"
             invisible="state != 'under_maintenance'" />
 
           <field name="state" widget="statusbar"

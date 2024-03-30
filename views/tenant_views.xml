@@ -63,12 +63,16 @@
                             <field name="name" />
                         </group>
                     </h1>
+                    <!-- <field name="offer_ids"> -->
                     <group>
                         <field name="contact_information" />
-                        <field name="offer_ids">
+                        <field name="property_id">
                             <tree>
-                                <field name="property_id" />
-                                <field name="contract_id" />
+                                <field name="name" />
+                                <field name="state" />
+                                <button name="mark_Under_Maintenance" type="object"
+                                    title="Start Maintenance" icon="fa-wrench"
+                                    invisible="state == 'under_maintenance'" />
                             </tree>
                         </field>
                     </group>
