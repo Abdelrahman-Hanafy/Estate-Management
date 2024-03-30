@@ -78,7 +78,7 @@ class PropertyOffer(models.Model):
             record.state = 'accepted'
             record.property_id.mark_Rented()
             record.property_id.tenant_id = record.tenant_id
-            record.tenant_id.property_id = record.property_id
+            record.tenant_id.property_id += record.property_id
 
         return True
         # # Get the target form view ID (replace with your actual view ID)
