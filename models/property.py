@@ -124,6 +124,7 @@ class Property(models.Model):
     maintenance_ids = fields.One2many(
         'property.maintanance', 'property_id', string="Maintenance",
     )
+    maintenance_state = fields.Selection(related='maintenance_ids.state')
 
     ########################################################################
 
@@ -161,6 +162,11 @@ class Property(models.Model):
         for record in self:
             record.best_offer = max(record.offer_ids.mapped(
                 "price")) if record.offer_ids else 0
+
+    @api.onchange("maintenance_state")
+    def _onchange_maintenance_state(self):
+        if self.maintenance_state == 'in_progress':
+            self.state = 'under_maintenance'
 
     def mark_Available(self):
         """
