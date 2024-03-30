@@ -103,10 +103,14 @@
           <!-- <button name="mark_Rented" type="object" string="Rented" /> -->
           <button name="mark_Available" type="object" string="Cancel Rent"
             invisible="state == 'new'" />
-          <button name="mark_Under_Maintenance" type="object" string="Start Maintenance"
-            invisible="state == 'under_maintenance'" />
-          <button name="mark_Rented" type="object" string="End Maintenance"
+
+          <button name="Estate_Management.Maintanance_list" type="action" string="Maintenance Reqs" />
+
+          <!-- <button name="mark_Rented" type="object" string="End Maintenance"
             invisible="state != 'under_maintenance'" />
+
+          <button name="Estate_Management.Maintanance_the_wizard" type="action" string="Demo" /> -->
+
 
           <field name="state" widget="statusbar"
             statusbar_visible="available, offer_received, rented" />
