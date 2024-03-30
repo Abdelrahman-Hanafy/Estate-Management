@@ -12,6 +12,9 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+
+        'views/maintanance_views.xml',
+
         'views/owner_views.xml',
         'views/tenant_views.xml',
         'views/visitor_views.xml',

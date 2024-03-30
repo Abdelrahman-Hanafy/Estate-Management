@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+
+    <record id="Maintanance_the_wizard" model="ir.actions.act_window">
+        <field name="name">Maintanance Request</field>
+        <field name="res_model">property.maintanance</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,1 +1,1 @@
-from . import owner, tenant, property, transaction, property_offer, contract_management, visitor
+from . import owner, tenant, property, transaction, property_offer, contract_management, visitor, property_maintanance
