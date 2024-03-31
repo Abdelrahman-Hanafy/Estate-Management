@@ -27,7 +27,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Standard Clauses ">
+                        <page string="Clauses">
                             <field name="clauses_ids">
                                 <tree>
 
@@ -36,6 +36,21 @@
                                 </tree>
 
                             </field>
+                        </page>
+                        <page string="Termination Clauses">
+                            <group>
+
+                                <field name="terminate_clause_id" string="Terminated On"
+                                    widget="radio" />
+                                <field name="termination_cause"
+                                    string="Addtional Causes for Termination" />
+
+                            </group>
+                            <div class="d-flex justify-content-end">
+
+                                <button name="action_terminate" title="terminate"
+                                    icon="fa-chain-broken" type="object" />
+                            </div>
                         </page>
                     </notebook>
                 </sheet>

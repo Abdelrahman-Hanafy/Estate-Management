@@ -14,12 +14,17 @@ class ContractManagement(models.Model):
     name = fields.Char(string="Name", compute="_compute_name", store=True,
                        help="Name of the contract")
 
+    termination_cause = fields.Text(string="Termination Cause", tracking=True)
+
     # Start of relational fields
     ########################################################################
 
     clauses_ids = fields.Many2many(
         'contract.clause', string="Clauses", default=lambda self: self._add_standard_clause(),
         help="List of clauses included in the contract", tracking=True)
+
+    terminate_clause_id = fields.Many2one(
+        'contract.clause', string="Terminate Clause", help="Clause to terminate the contract")
 
     agreement_id = fields.Many2one(
         'lease.agreement', string="Agreement", help="Agreement related to the contract")
@@ -72,6 +77,9 @@ class ContractManagement(models.Model):
             ('clause_type', '=', 'standard')
         ])
         return std_clause
+
+    def action_terminate(self):
+        pass
 
 
 class Clause(models.Model):
