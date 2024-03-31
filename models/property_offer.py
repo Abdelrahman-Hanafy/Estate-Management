@@ -77,7 +77,7 @@ class PropertyOffer(models.Model):
     def rent_property(self):
         self.property_id.mark_Rented()
         self.property_id.tenant_id = self.tenant_id
-        self.tenant_id.property_id += self.property_id
+        self.tenant_id.property_ids += self.property_id
 
         return True
 

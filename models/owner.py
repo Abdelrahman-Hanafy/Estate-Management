@@ -14,9 +14,10 @@ class Owner(models.Model):
 
     name = fields.Char(string='Name')
     contact_information = fields.Char(string='Phone')
-    ownership_percentage = fields.Float(string='Ownership %')
 
+    # Relationship with property
     property_id = fields.Many2one('property', string='Property')
+    ownership_percentage = fields.Float(string='Ownership %')
 
     _sql_constraints = [
         ('phone_number_length_check', "CHECK (contact_information ~ '^\\d{11}$')",

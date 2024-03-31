@@ -18,11 +18,12 @@ class Tenant(models.Model):
                                       help='The contact information of the tenant.')
 
     # Relationl fields
-    ##########################
 
-    property_id = fields.One2many('property', 'tenant_id', string='Property')
+    property_ids = fields.One2many('property', 'tenant_id', string='Property')
     aggreement_ids = fields.One2many(
         'lease.agreement', 'tenant_id', string='Agreements')
+
+    # SQL constraints
 
     _sql_constraints = [
         ('phone_number_length_check', "CHECK (contact_information ~ '^\\d{11}$')",

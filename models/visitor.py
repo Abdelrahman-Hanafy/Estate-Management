@@ -13,11 +13,13 @@ class Visitor(models.Model):
     (e.g. new, pending, approved, declined, canceled, done) of their visit.
     """
 
+    # visitor fields
     name = fields.Char(string='Name', help="Name of the visitor")
     mail = fields.Char(string='Email', help="Email of the visitor")
     mobile = fields.Char(string='Mobile', size=11,
                          help="Mobile number of the visitor")
 
+    # visit fields
     purpose = fields.Selection([
         ('tenant', 'Tenant'),
         ('buyer', 'Buyer'),
@@ -36,9 +38,11 @@ class Visitor(models.Model):
     ], default='new', string='State',
         help="State of the visitor's visit")
 
+    # Related fields
     property_id = fields.Many2one('property', string='Property',
                                   help="The property visited by the visitor")
 
+    # Actions
     def action_submit(self):
         self.state = 'pending'
 

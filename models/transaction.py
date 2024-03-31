@@ -8,13 +8,14 @@ class Transaction(models.Model):
     _name = 'transaction'
     _description = 'Transaction'
 
+    name = fields.Char(string='Name', help='Name of the transaction.')
     date = fields.Date(string='Date', help='Date of the transaction.')
-
     amount = fields.Integer(
         string='Amount', help='Amount of the transaction.')
 
     parties_details = fields.Char(
         string='Parties', help='Parties involved in the transaction.')
 
-    property = fields.Many2one(
+    # relation fields
+    property_id = fields.Many2one(
         'property', string='Property', help='Property involved in the transaction.')

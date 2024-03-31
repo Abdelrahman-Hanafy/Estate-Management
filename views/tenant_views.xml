@@ -69,7 +69,7 @@
                     <notebook>
                         <page string="Properties">
 
-                            <field name="property_id">
+                            <field name="property_ids">
                                 <tree create="false">
                                     <field name="id" invisible='1' optional='hide' />
                                     <field name="name" />
