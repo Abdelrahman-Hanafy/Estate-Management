@@ -19,9 +19,7 @@ class Property(models.Model):
     # The name or identifier of the property (e.g., “Luxury Villa,” “Apartment 3B”).
     name = fields.Char(string='Name', required=True,
                        help="The name of the property")
-    # The physical address of the property.
     address = fields.Char(string='Address', help="The address of the property")
-    # The type of property (e.g., residential, commercial, land).
     property_type = fields.Selection([
         ('residential', 'Residential'),
         ('commercial', 'Commercial'),
@@ -42,7 +40,7 @@ class Property(models.Model):
     description = fields.Text(string='Description',
                               help="Additional details about the property")
 
-    # Represents the current state of the property (e.g., available, rented, under maintenance)
+    # Represents the current state of the property
     state = fields.Selection([
         ('new', 'New'),
         ('available', 'Available'),
@@ -66,8 +64,7 @@ class Property(models.Model):
     best_offer = fields.Float(string='Best Offer', compute="_compute_best_offer", store=True,
                               help="The best offer for this property")
 
-    # Additional features of the property
-    ########################################################################
+    ##### Additional features #####
 
     # The number of bedrooms of the property
     bedrooms = fields.Integer(
@@ -95,10 +92,7 @@ class Property(models.Model):
     ], string='Garden Orientation',
         help="The orientation of the garden of the property")
 
-    ########################################################################
-
-    # Start of relational fields
-    ########################################################################
+    ##### relational fields #####
 
     # The owners of the property
     owner_ids = fields.One2many('owner', 'property_id',
@@ -126,11 +120,12 @@ class Property(models.Model):
         help="The list of documents for this property"
     )
 
+    # The maintenance requests for the property
     maintenance_ids = fields.One2many(
         'property.maintanance', 'property_id', string="Maintenance",
     )
 
-    ########################################################################
+    ### Default value ###
 
     def _compute_default_availability_date(self):
         """
@@ -138,6 +133,7 @@ class Property(models.Model):
         """
         return fields.Datetime.today() + timedelta(days=90)
 
+    ### ONCHANGE ###
     @api.onchange("garden")
     def _onchange_garden(self):
         """
@@ -150,6 +146,14 @@ class Property(models.Model):
             self.garden_area = 0
             self.garden_orientation = None
 
+    @api.onchange('offer_ids')
+    def _onchange_has_offers(self):
+        """
+        Update the state of the property based on the offers
+        """
+        self.state = "offer_received" if self.offer_ids else "new"
+
+    ### COMPUTE ###
     @api.depends("width", "height")
     def _compute_size(self):
         """
@@ -167,14 +171,7 @@ class Property(models.Model):
             record.best_offer = max(record.offer_ids.mapped(
                 "price")) if record.offer_ids else 0
 
-    def mark_Available(self):
-        """
-        Mark the property as Available
-        """
-        for record in self:
-            record.state = "available"
-        return True
-
+    ### ACTIONS ###
     def mark_Rented(self):
         """
         Mark the property as Rented
@@ -183,18 +180,13 @@ class Property(models.Model):
             record.state = "rented"
         return True
 
-    @api.onchange('offer_ids')
-    def _onchange_has_offers(self):
-        """
-        Update the state of the property based on the offers
-        """
-        self.state = "offer_received" if self.offer_ids else "new"
-
 
 class PropertyDocument(models.Model):
     _name = 'property.document'
     _description = 'Property Document'
 
     name = fields.Char(string='Name')
-    property_id = fields.Many2one('property', string='Property')
     document = fields.Binary(string='Document')
+
+    # The property that the document belongs to
+    property_id = fields.Many2one('property', string='Property')
