@@ -48,9 +48,14 @@ class Property(models.Model):
         ('available', 'Available'),
         ('offer_received', 'Offer Received'),
         ('rented', 'Rented'),
-        ('under_maintenance', 'Under Maintenance')
     ], default='new', string='State',
         help="The current state of the property")
+
+    maintenance_state = fields.Selection([
+        ('requested', 'Requested'),
+        ('in_progress', 'In Progress'),
+        ('good', 'Good'),
+    ], string='Maintenance State', help="The state of maintenance of the property")
 
     # The availability date of the property
     availability_date = fields.Datetime(string='Availability Date',
@@ -124,7 +129,6 @@ class Property(models.Model):
     maintenance_ids = fields.One2many(
         'property.maintanance', 'property_id', string="Maintenance",
     )
-    maintenance_state = fields.Selection(related='maintenance_ids.state')
 
     ########################################################################
 
@@ -163,11 +167,6 @@ class Property(models.Model):
             record.best_offer = max(record.offer_ids.mapped(
                 "price")) if record.offer_ids else 0
 
-    @api.onchange("maintenance_state")
-    def _onchange_maintenance_state(self):
-        if self.maintenance_state == 'in_progress':
-            self.state = 'under_maintenance'
-
     def mark_Available(self):
         """
         Mark the property as Available
@@ -182,14 +181,6 @@ class Property(models.Model):
         """
         for record in self:
             record.state = "rented"
-        return True
-
-    def mark_Under_Maintenance(self):
-        """
-        Mark the property as Under Maintenance
-        """
-        for record in self:
-            record.state = "under_maintenance"
         return True
 
     @api.onchange('offer_ids')

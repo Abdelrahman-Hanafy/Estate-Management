@@ -11,6 +11,11 @@
                     <field name="state" widget="statusbar"
                         statusbar_visible="pending, in_progress, done" />
 
+                    <button name="action_start" string="Start" type="object"
+                        invisible='state != "pending"' />
+                    <button name="action_done" string="Complete" type="object"
+                        invisible='state != "in_progress"' />
+
                 </header>
 
                 <sheet>

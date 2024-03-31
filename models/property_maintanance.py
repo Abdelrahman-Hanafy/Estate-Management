@@ -31,10 +31,15 @@ class PropertyMaintanance(models.Model):
     property_id = fields.Many2one(
         'property', string='Property', default=lambda self: self.env.context.get('property_id', None))
 
-    @api.onchange('cost')
-    def _onchange_cost(self):
-        if self.cost > 0:
-            self.state = 'in_progress'
+    def action_start(self):
+        self.state = 'in_progress'
+        self.property_id.maintenance_state = 'in_progress'
+        return True
+
+    def action_done(self):
+        self.state = 'done'
+        self.property_id.maintenance_state = 'good'
+        return True
 
 
 class PropertyMaintananceRequest(models.TransientModel):
@@ -60,4 +65,6 @@ class PropertyMaintananceRequest(models.TransientModel):
             'maintenance_type': self.maintenance_type,
             'description': self.description
         })
+
+        property.maintenance_state = 'requested'
         return property_maintanance

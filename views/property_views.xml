@@ -106,9 +106,9 @@
         </header>
         <sheet>
 
-
+          <field name="maintenance_state" invisible='1' />
           <widget name="web_ribbon" title="Under Maintenance"
-            invisible="state != 'under_maintenance'"
+            invisible="maintenance_state != 'in_progress'"
             bg_color="text-bg-warning" />
 
           <h1>
