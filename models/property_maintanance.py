@@ -5,7 +5,7 @@ class PropertyMaintanance(models.Model):
     _name = 'property.maintanance'
     _description = 'Property Maintanance'
 
-    # Request Fields
+    ##### Request Fields #####
     name = fields.Char(string='Name')
     maintenance_type = fields.Selection([
         ('repair', 'Repair'),
@@ -20,17 +20,18 @@ class PropertyMaintanance(models.Model):
         ('done', 'Done'),
     ], default='pending', string='State')
 
-    # Maintanance Fields
+    ##### Maintanance Fields #####
     cost = fields.Integer(
         string='Cost', help='Total Cost of the maintenance', default=0)
     start_date = fields.Date(
         string='Start Date', help='Start date of the maintenance')
     duration = fields.Integer(string='Duration', help='Duration in workdays')
 
-    # Relationship Fields
+    ##### Relationship Fields #####
     property_id = fields.Many2one(
         'property', string='Property', default=lambda self: self.env.context.get('property_id', None))
 
+    #### Actions ####
     def action_start(self):
         self.state = 'in_progress'
         self.property_id.maintenance_state = 'in_progress'

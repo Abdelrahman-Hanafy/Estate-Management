@@ -16,8 +16,7 @@ class ContractManagement(models.Model):
 
     termination_cause = fields.Text(string="Termination Cause", tracking=True)
 
-    # Start of relational fields
-    ########################################################################
+    #### Relational fields ####
 
     clauses_ids = fields.Many2many(
         'contract.clause', string="Clauses", default=lambda self: self._add_standard_clause(),
@@ -36,14 +35,14 @@ class ContractManagement(models.Model):
                            help="End date of the contract")
     price = fields.Float(string="Price", related='agreement_id.price')
 
-    # Start of Report fields
-    ########################################################################
+    ##### Report fields #####
 
     avg_duration = fields.Integer(compute="_compute_avg_duration")
     most_used_clause_name = fields.Char(
         compute="_compute_most_used_clause_name"
     )
 
+    #### COMPUTE ####
     @api.depends('agreement_id')
     def _compute_name(self):
 
@@ -72,12 +71,14 @@ class ContractManagement(models.Model):
             # Store results
             rec.most_used_clause_name = most_used_clause[0][0] if most_used_clause else None
 
+    #### DEFAULT ####
     def _add_standard_clause(self):
         std_clause = self.env['contract.clause'].search([
             ('clause_type', '=', 'standard')
         ])
         return std_clause
 
+    #### ACTIONS ####
     def action_terminate(self):
         pass
 

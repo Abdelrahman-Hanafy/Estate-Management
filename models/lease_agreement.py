@@ -11,7 +11,8 @@ class LeaseAgreement(models.Model):
     end_date = fields.Date(string='End Date', compute='_compute_end_date')
     duration = fields.Integer(string='Duration', default=1)
 
-    # relation fields
+    ##### Relation fields #####
+
     offer_id = fields.Many2one('property.offer', string="Offer",
                                help="Offer related to the agreement")
     price = fields.Float(string="Price", related='offer_id.price')
@@ -23,6 +24,7 @@ class LeaseAgreement(models.Model):
         'tenant', string='Tenant', related='offer_id.tenant_id'
     )
 
+    #### COMPUTE ####
     @api.depends('start_date', 'duration')
     def _compute_end_date(self):
 
@@ -30,6 +32,7 @@ class LeaseAgreement(models.Model):
             rec.end_date = rec.start_date + \
                 relativedelta(months=rec.duration)
 
+    #### Overriding methods ####
     @api.model
     def create(self, vals):
         lease = super().create(vals)
