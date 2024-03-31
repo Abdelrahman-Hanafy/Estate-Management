@@ -20,7 +20,7 @@
         <!-- Transaction amount -->
         <field name="amount" />
         <!-- Transaction property -->
-        <field name="property" />
+        <field name="property_id" />
 
         <!-- Parties details -->
         <field name="parties_details" string="Parties details" optional="hide" />
