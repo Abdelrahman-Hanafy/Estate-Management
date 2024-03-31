@@ -41,10 +41,8 @@ class PropertyOffer(models.Model):
     # The property to rent
     property_id = fields.Many2one(
         'property', string='Property', required=True, help="Property to rent")
-    # The tenant who made the offer
-    # partner_id = fields.Many2one(
-    #     'res.partner', string='Partner', required=True, help="Tenant who made the offer")
 
+    # The tenant who made the offer
     tenant_id = fields.Many2one(
         'tenant', string='Tenant', required=True, help="Tenant who made the offer")
 
@@ -73,9 +71,13 @@ class PropertyOffer(models.Model):
         """
         for record in self:
             record.state = 'accepted'
-            record.property_id.mark_Rented()
-            record.property_id.tenant_id = record.tenant_id
-            record.tenant_id.property_id += record.property_id
+
+        return True
+
+    def rent_property(self):
+        self.property_id.mark_Rented()
+        self.property_id.tenant_id = self.tenant_id
+        self.tenant_id.property_id += self.property_id
 
         return True
 

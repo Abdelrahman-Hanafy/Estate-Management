@@ -29,3 +29,9 @@ class LeaseAgreement(models.Model):
         for rec in self:
             rec.end_date = rec.start_date + \
                 relativedelta(months=rec.duration)
+
+    @api.model
+    def create(self, vals):
+        lease = super().create(vals)
+        lease.offer_id.rent_property()
+        return lease

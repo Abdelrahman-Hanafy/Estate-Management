@@ -190,14 +190,6 @@ class Property(models.Model):
         """
         self.state = "offer_received" if self.offer_ids else "new"
 
-    def mark_has_offers(self):
-        """
-        Mark all records as having offers.
-        """
-        for record in self:
-            record.state = "offer_received"
-        return True
-
 
 class PropertyDocument(models.Model):
     _name = 'property.document'
