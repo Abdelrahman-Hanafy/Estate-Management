@@ -63,21 +63,36 @@
                             <field name="name" />
                         </group>
                     </h1>
-                    <!-- <field name="offer_ids"> -->
                     <group>
                         <field name="contact_information" />
-                        <field name="property_id" widgets="section_and_note_one2many" mode="tree">
-                            <tree>
-                                <field name="id" invisible='1' optional='hide' />
-                                <field name="name" />
-                                <field name="state" />
-                                <button name="Estate_Management.Maintanance_the_wizard"
-                                    type="action"
-                                    title="Start Maintenance" icon="fa-wrench"
-                                    context="{'property_id': id}" />
-                            </tree>
-                        </field>
                     </group>
+                    <notebook>
+                        <page string="Properties">
+
+                            <field name="property_id">
+                                <tree create="false">
+                                    <field name="id" invisible='1' optional='hide' />
+                                    <field name="name" />
+                                    <field name="state" />
+                                    <button name="Estate_Management.Maintanance_the_wizard"
+                                        type="action"
+                                        title="Start Maintenance" icon="fa-wrench"
+                                        context="{'property_id': id}" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Agreements">
+                            <field name="aggreement_ids">
+                                <tree create="false">
+
+                                    <field name="name" />
+                                    <field name="price" />
+
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

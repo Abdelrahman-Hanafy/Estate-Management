@@ -19,6 +19,10 @@ class LeaseAgreement(models.Model):
     property_id = fields.Many2one(
         'property', string='Property', related='offer_id.property_id')
 
+    tenant_id = fields.Many2one(
+        'tenant', string='Tenant', related='offer_id.tenant_id'
+    )
+
     @api.depends('start_date', 'duration')
     def _compute_end_date(self):
 

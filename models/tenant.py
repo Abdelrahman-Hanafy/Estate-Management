@@ -20,9 +20,9 @@ class Tenant(models.Model):
     # Relationl fields
     ##########################
 
-    offer_ids = fields.One2many('property.offer', 'tenant_id', string='Offers')
-
     property_id = fields.One2many('property', 'tenant_id', string='Property')
+    aggreement_ids = fields.One2many(
+        'lease.agreement', 'tenant_id', string='Agreements')
 
     _sql_constraints = [
         ('phone_number_length_check', "CHECK (contact_information ~ '^\\d{11}$')",
