@@ -35,3 +35,18 @@ class LeaseAgreement(models.Model):
         lease = super().create(vals)
         lease.offer_id.rent_property()
         return lease
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        # Add custom filter to exclude agreements linked to contracts
+        custom_args = [('id', 'not in', self.env['contract.management'].search(
+            []).mapped('agreement_id.id'))]
+
+        # Combine custom args with the original args
+        if args:
+            args += custom_args
+        else:
+            args = custom_args
+
+        # Call the original name_search method
+        return super(LeaseAgreement, self).name_search(name, args=args, operator=operator, limit=limit)
