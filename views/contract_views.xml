@@ -41,7 +41,7 @@
                             <group>
 
                                 <field name="terminate_clause_id" string="Terminated On"
-                                    widget="radio" />
+                                    widget="radio" domain="[('id', 'in', clauses_ids)]" />
                                 <field name="termination_cause"
                                     string="Addtional Causes for Termination" />
 
