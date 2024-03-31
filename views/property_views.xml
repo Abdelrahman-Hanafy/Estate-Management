@@ -192,12 +192,12 @@
               </page>
 
               <page string="Maintanance">
-                <field name="maintenance_ids">
-                  <tree>
+                <field name="maintenance_ids" options="{'no_create': True}">
+                  <tree create="false">
                     <field name="name" />
                     <field name="maintenance_type" />
-                    <button name="Estate_Management.Maintanance_list" title="✔" icon="fa-check"
-                      type="action" />
+                    <field name="state" />
+
                   </tree>
 
                 </field>

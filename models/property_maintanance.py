@@ -35,3 +35,29 @@ class PropertyMaintanance(models.Model):
     def _onchange_cost(self):
         if self.cost > 0:
             self.state = 'in_progress'
+
+
+class PropertyMaintananceRequest(models.TransientModel):
+
+    _name = 'property.maintanance.request'
+    _description = 'Maintanance Request'
+
+    name = fields.Char(string='Name')
+    maintenance_type = fields.Selection([
+        ('repair', 'Repair'),
+        ('maintenance', 'Maintenance'),
+        ('inspection', 'Inspection'),
+    ], string='Type')
+    description = fields.Text(string='Description')
+
+    def action_request(self):
+        self.ensure_one()
+        property = self.env['property'].browse(
+            self.env.context.get('active_id'))
+        property_maintanance = self.env['property.maintanance'].create({
+            'property_id': property.id,
+            'name': self.name,
+            'maintenance_type': self.maintenance_type,
+            'description': self.description
+        })
+        return property_maintanance

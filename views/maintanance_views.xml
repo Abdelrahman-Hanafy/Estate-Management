@@ -41,35 +41,9 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="Maintanance_req_view_form" model="ir.ui.view">
-        <field name="name">Maintanance.form</field>
-        <field name="model">property.maintanance</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-
-                    <group>
-
-                        <field name="cost" string="Cost" />
-                        <field name="start_date" string="Start Date" />
-                        <field name="duration" string="Duration" />
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="Maintanance_list" model="ir.actions.act_window">
-        <field name="name">Maintanance List</field>
-        <field name="res_model">property.maintanance</field>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="Maintanance_req_view_form"></field>
-        <field name="target">new</field>
-    </record>
-
     <record id="Maintanance_details_view_form" model="ir.ui.view">
         <field name="name">Maintanance.form</field>
-        <field name="model">property.maintanance</field>
+        <field name="model">property.maintanance.request</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -81,13 +55,20 @@
                         <field name="description" string="Description" />
                     </group>
                 </sheet>
+                <footer>
+                    <!-- id="create_invoice_open" -->
+                    <button name="action_request" type="object"
+                        string="Submit Request"
+                        class="btn-primary" data-hotkey="q" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x" />
+                </footer>
             </form>
         </field>
     </record>
 
     <record id="Maintanance_the_wizard" model="ir.actions.act_window">
         <field name="name">Maintanance Request</field>
-        <field name="res_model">property.maintanance</field>
+        <field name="res_model">property.maintanance.request</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="Maintanance_details_view_form"></field>
         <field name="target">new</field>
