@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="asset_view_kanban" model="ir.ui.view">
+        <field name="name">asset.kanban</field>
+        <field name="model">property.asset</field>
+        <field name="arch" type="xml">
+
+            <kanban>
+
+                <templates>
+                    <!-- Template for the kanban box -->
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <!-- TODO: THIS ONLY SHOW IMAGES, VIDEOS SHOULD BE SUPPORTED TOO -->
+                            <field name="asset" widget="image" />
+                            <field name="property_id" />
+                            <div>
+                                <field name="tag_id" />
+                                <field name="category_id" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="property_asset_action" model="ir.actions.act_window">
+        <!-- Name of the action -->
+        <field name="name">Property Ssset action</field>
+        <!-- Model for the action -->
+        <field name="res_model">property.asset</field>
+        <!-- View modes for the action -->
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+</odoo>

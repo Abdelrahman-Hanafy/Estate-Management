@@ -20,6 +20,7 @@
         'views/visitor_views.xml',
         'views/property_views.xml',
         'views/property_document.xml',
+        'views/property_asset.xml',
         'views/transaction_view.xml',
         'views/report_contract.xml',
         'views/agreement_views.xml',

@@ -83,6 +83,13 @@
         action='property_document_action'
         sequence="30"
     />
+    <menuitem
+        id="property_asset_menu"
+        name="Assets"
+        parent='property_menu'
+        action='property_asset_action'
+        sequence="40"
+    />
     <!--
     Menu item for the transaction model.
     It's an action menu item, it will execute the transaction_action.
