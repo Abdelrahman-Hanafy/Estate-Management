@@ -120,6 +120,14 @@ class Property(models.Model):
         help="The list of documents for this property"
     )
 
+    # The assets for the property
+    assets_ids = fields.One2many(
+        'property.asset',
+        'property_id',
+        string="Assets",
+        help="The list of assets for this property"
+    )
+
     # The maintenance requests for the property
     maintenance_ids = fields.One2many(
         'property.maintanance', 'property_id', string="Maintenance",

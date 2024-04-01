@@ -190,6 +190,27 @@
                 </field>
 
               </page>
+              <page string="Assets">
+                <field name="assets_ids">
+                  <kanban>
+
+                    <templates>
+
+                      <t t-name="kanban-box">
+                        <div>
+                          <field name="asset" widget="image" />
+                          <div>
+                            <field name="tag_id" />
+                            <field name="category_id" />
+                          </div>
+                        </div>
+                      </t>
+                    </templates>
+                  </kanban>
+
+                </field>
+
+              </page>
 
               <page string="Maintanance">
                 <field name="maintenance_ids" options="{'no_create': True}">
