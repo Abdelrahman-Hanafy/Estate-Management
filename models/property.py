@@ -97,16 +97,17 @@ class Property(models.Model):
     # The owners of the property
     owner_ids = fields.One2many('owner', 'property_id',
                                 string="Owners", help="The owners of the property")
-    owner_user_ids = fields.Many2many(
-        'res.users', string='Owners',
-        compute='_compute_owner_user_ids', store=True,
-    )
 
     # The tenant who currently occupies the property
     tenant_id = fields.Many2one(
         'tenant',
         string='Tenants',
         help="The tenant who currently occupies the property"
+    )
+
+    user_ids = fields.Many2many(
+        'res.users', string='Owners',
+        compute='_compute_owner_user_ids', store=True,
     )
 
     # The offers for the property
@@ -183,10 +184,11 @@ class Property(models.Model):
             record.best_offer = max(record.offer_ids.mapped(
                 "price")) if record.offer_ids else 0
 
-    @api.depends("owner_ids")
+    @api.depends("owner_ids", "tenant_id")
     def _compute_owner_user_ids(self):
         for record in self:
-            record.owner_user_ids = record.owner_ids.mapped("user_id")
+            record.user_ids = record.owner_ids.mapped("user_id")
+            record.user_ids += record.tenant_id.user_id
 
     ### ACTIONS ###
     def mark_Rented(self):

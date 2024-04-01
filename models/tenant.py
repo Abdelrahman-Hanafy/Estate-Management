@@ -23,6 +23,8 @@ class Tenant(models.Model):
     aggreement_ids = fields.One2many(
         'lease.agreement', 'tenant_id', string='Agreements')
 
+    user_id = fields.Many2one('res.users', string='User', required=True)
+
     # SQL constraints
 
     _sql_constraints = [

@@ -65,6 +65,7 @@
                     </h1>
                     <group>
                         <field name="contact_information" />
+                        <field name="user_id" />
                     </group>
                     <notebook>
                         <page string="Properties">
