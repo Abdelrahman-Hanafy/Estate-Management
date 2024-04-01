@@ -5,18 +5,28 @@
         <field name='name'> Estate Management Role</field>
     </record>
 
-    <record model="res.groups" id="estate_management_manager">
-        <field name="name">Manager Role</field>
+    <record model="res.groups" id="property_admin">
+        <field name="name">Properties Administrator </field>
         <field name="category_id" ref="Estate_Management.estate_management_category" />
     </record>
 
-    <record model="res.groups" id="estate_management_security">
-        <field name="name">Security Role</field>
+    <record model="res.groups" id="property_manager">
+        <field name="name">Property Manager </field>
         <field name="category_id" ref="Estate_Management.estate_management_category" />
     </record>
 
-    <record model="res.groups" id="estate_management_user">
-        <field name="name">User Role</field>
+    <record model="res.groups" id="property_owner">
+        <field name="name">Property Owner </field>
+        <field name="category_id" ref="Estate_Management.estate_management_category" />
+    </record>
+
+    <record model="res.groups" id="property_tanent">
+        <field name="name">Property Tanent </field>
+        <field name="category_id" ref="Estate_Management.estate_management_category" />
+    </record>
+
+    <record model="res.groups" id="property_security">
+        <field name="name">Property Security </field>
         <field name="category_id" ref="Estate_Management.estate_management_category" />
     </record>
 </odoo>
