@@ -10,6 +10,7 @@ class Owner(models.Model):
     """
 
     _name = "owner"
+    # _inherit = 'res.partner'
     _description = "Owner"
 
     name = fields.Char(string='Name')
@@ -18,6 +19,8 @@ class Owner(models.Model):
     # Relationship with property
     property_id = fields.Many2one('property', string='Property')
     ownership_percentage = fields.Float(string='Ownership %')
+
+    user_id = fields.Many2one('res.users', string='User', required=True)
 
     _sql_constraints = [
         ('phone_number_length_check', "CHECK (contact_information ~ '^\\d{11}$')",
