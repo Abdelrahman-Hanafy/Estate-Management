@@ -117,6 +117,9 @@
 
           <group>
 
+            <field name="manager_id" string="Manager" />
+          </group>
+          <group>
             <group>
               <group>
                 <field name="property_type" widget="radio" />

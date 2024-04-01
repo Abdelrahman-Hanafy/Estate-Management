@@ -94,6 +94,10 @@ class Property(models.Model):
 
     ##### relational fields #####
 
+    manager_id = fields.Many2one(
+        'res.users', string='Manager', help="The manager of the property"
+    )
+
     # The owners of the property
     owner_ids = fields.One2many('owner', 'property_id',
                                 string="Owners", help="The owners of the property")
