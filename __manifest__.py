@@ -1,7 +1,7 @@
 {
     'name': "Estate Management",
     'version': '1.0',
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'hr'],
     'author': "Abdelrahman Hanafy",
     'category': 'Category',
     'description': """

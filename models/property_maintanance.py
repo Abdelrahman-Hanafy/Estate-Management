@@ -30,6 +30,10 @@ class PropertyMaintanance(models.Model):
     ##### Relationship Fields #####
     property_id = fields.Many2one(
         'property', string='Property', default=lambda self: self.env.context.get('property_id', None))
+    
+    personnel_id = fields.Many2many(
+        'hr.employee', string='worker'
+    )
 
     #### Actions ####
     def action_start(self):
