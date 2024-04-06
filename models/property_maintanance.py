@@ -27,6 +27,8 @@ class PropertyMaintanance(models.Model):
         string='Start Date', help='Start date of the maintenance')
     duration = fields.Integer(string='Duration', help='Duration in workdays')
 
+    # TODO: ADD SUBTASKS AND FOLLOW WORK ORDER PROGRESS
+
     ##### Relationship Fields #####
     property_id = fields.Many2one(
         'property', string='Property', default=lambda self: self.env.context.get('property_id', None))

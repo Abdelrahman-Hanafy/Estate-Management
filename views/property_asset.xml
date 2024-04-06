@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<odoo>
+<odoo> 
 
 
     <record id="asset_view_form" model="ir.ui.view">
@@ -45,6 +45,8 @@
                         <div class="oe_kanban_card oe_kanban_global_click">
                             <!-- TODO: THIS ONLY SHOW IMAGES, VIDEOS SHOULD BE SUPPORTED TOO -->
                             <field name="asset" widget="image" />
+                            <!-- <field name="asset_url" widget="video_display"/> -->
+
                             <field name="property_id" />
                             <div>
                                 <field name="tag_id" />

@@ -32,4 +32,10 @@
 
     ],
     'application': True,
+    'assets': {
+        'web.assets_backend': [
+            'Estate_Management/static/src/js/video_display_widget.js',
+            
+        ],
+    }
 }
