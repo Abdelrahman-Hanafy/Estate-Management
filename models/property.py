@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 
 
 class Property(models.Model):
@@ -11,6 +12,7 @@ class Property(models.Model):
     """
     _name = "property"
     _description = "Property"
+    _inherit = ['mail.thread','mail.activity.mixin']
 
     _sql_constraints = [
         ('price_positive_check', "CHECK (price >= 0)", 'Price must be positive.'),
@@ -207,9 +209,29 @@ class Property(models.Model):
 class PropertyDocument(models.Model):
     _name = 'property.document'
     _description = 'Property Document'
+    _inherit = ['mail.thread','mail.activity.mixin']
 
+    _sql_constraints = [
+        ('validate_expiration_date', "CHECK (expiration_date > NOW())","Expiration date must be in the future."),
+    ]
     name = fields.Char(string='Name')
     document = fields.Binary(string='Document')
+    expiration_date = fields.Date(string='Expiration Date')
 
     # The property that the document belongs to
     property_id = fields.Many2one('property', string='Property')
+
+    def send_reminder_emails(self):
+        """
+        Send reminder emails to the owners of the property when the document expires
+        """
+        print("Sending Emails")
+
+        if self.expiration_date <= fields.Date.today() + relativedelta(months=1):
+            self.env['mail.activity'].create({
+                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+                'res_id': self.id,
+                'res_model_id': self.env.ref('Estate_Management.property.document').id,
+                'summary': f"Reminder for {self.name}",
+                'note': f"Document '{self.name}' expires on {self.expiration_date}",
+            })

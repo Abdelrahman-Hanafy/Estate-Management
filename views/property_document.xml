@@ -17,6 +17,32 @@
         </field>
     </record>
 
+    <record id="property_document_view_form" model="ir.ui.view">
+        <field name="name">Property Document.form</field>
+        <field name="model">property.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </h1>
+                    <group>
+                        <field name="property_id" />
+                        <field name="document" />
+                        <field name="expiration_date"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
     <record id="property_document_action" model="ir.actions.act_window">
         <!-- Name of the action -->
         <field name="name">Property Document action</field>
