@@ -225,17 +225,18 @@ class PropertyDocument(models.Model):
     # The property that the document belongs to
     property_id = fields.Many2one('property', string='Property')
 
-    def send_reminder_emails(self):
+    def check_rnewable(self):
         """
         Send reminder emails to the owners of the property when the document expires
         """
         print("Sending Emails")
 
-        if self.expiration_date <= fields.Date.today() + relativedelta(months=1):
+        expering_documents = self.search([("expiration_date", "<=", fields.Date.today() + relativedelta(months=1))])
+        for doc in expering_documents:
             self.env['mail.activity'].create({
                 'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                'res_id': self.id,
-                'res_model_id': self.env.ref('Estate_Management.property.document').id,
-                'summary': f"Reminder for {self.name}",
-                'note': f"Document '{self.name}' expires on {self.expiration_date}",
+                'res_id': doc.id,
+                'res_model_id': self.env.ref('Estate_Management.model_property_document').id,
+                'summary': f"Reminder for {doc.name}",
+                'note': f"Document '{doc.name}' expires on {doc.expiration_date}",
             })
