@@ -129,7 +129,13 @@
                 <field name="price" />
                 <field name="best_offer" />
               </group>
+              <div class="d-flex flex-row bd-highlight mb-3">
 
+                <button name="Estate_Management.property_survey_wizard_action"
+                                          type="action"
+                                          string="Survey"
+                                          context="{'property_id': id}" />
+              </div>
             </group>
 
             <notebook>
@@ -226,6 +232,16 @@
 
                 </field>
 
+              </page>
+              <page string="Survey">
+                <field name="survey_ids" >
+                  <tree create="false">
+                    <field name="date" />
+                    <field name="managment_score" />
+                    <field name="amenities_score" />
+                    <field name="overall_score" />
+                    </tree>
+                </field>
               </page>
             </notebook>
           </group>

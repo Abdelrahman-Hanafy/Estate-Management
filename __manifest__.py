@@ -14,6 +14,7 @@
         'security/ir.model.access.csv',
 
         'views/maintanance_views.xml',  # wizard
+        'views/property_survey.xml',
 
         'views/owner_views.xml',
         'views/tenant_views.xml',

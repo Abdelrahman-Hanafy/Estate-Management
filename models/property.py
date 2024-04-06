@@ -144,6 +144,10 @@ class Property(models.Model):
         'property.maintanance', 'property_id', string="Maintenance",
     )
 
+    survey_ids = fields.One2many(
+        'property.survey', 'property_id', string="Surveys",
+    )
+
     ### Default value ###
 
     def _compute_default_availability_date(self):
