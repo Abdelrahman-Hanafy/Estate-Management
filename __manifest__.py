@@ -16,19 +16,20 @@
         'views/maintanance_views.xml',  # wizard
         'views/property_survey.xml',
 
-        'views/owner_views.xml',
+        'views/owner_views.xml',    # views
         'views/tenant_views.xml',
         'views/visitor_views.xml',
         'views/property_views.xml',
         'views/property_document.xml',
         'views/property_asset.xml',
         'views/transaction_view.xml',
-        'views/report_contract.xml',
         'views/agreement_views.xml',
         'views/contract_clause.xml',
         'views/contract_views.xml',
 
-        'views/estate_management_menu.xml',
+        'report/contract_report.xml', # report
+
+        'views/estate_management_menu.xml', # menu
 
     ],
     'application': True,

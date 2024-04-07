@@ -106,15 +106,4 @@
         <field name="view_mode">tree,form,calendar</field>
     </record>
 
-
-    <record id="contract_management_report_action" model="ir.actions.report">
-        <field name="name">Contracts Report</field>
-        <field name="model">contract.management</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">Estate_Management.report_contract</field>
-        <field name="report_file">Estate_Management.report_contract</field>
-        <field name="binding_model_id" ref="model_contract_management" />
-
-        <field name="binding_type">report</field>
-    </record>
 </odoo>
