@@ -15,7 +15,6 @@
                         invisible='state != "pending"' />
                     <button name="action_done" string="Complete" type="object"
                         invisible='state != "in_progress"' />
-
                 </header>
 
                 <sheet>
@@ -23,19 +22,29 @@
 
                         <field name="name" string="Name" />
                         <field name="maintenance_type" string="Type" />
+                        <field name="cost" string="Cost" />
+                    </group>
+                    <group>
+                        
+                        <field name="start_date" string="Start Date" />
+                        <field name="duration" string="Duration" />                        
+                    </group>
+                    <group>
+                        <field name="property_id" />
                         <field name="description" string="Description" />
                     </group>
-                    <group>
-
-                        <field name="cost" string="Cost" />
-                        <field name="start_date" string="Start Date" />
-                        <field name="duration" string="Duration" />
-                    </group>
-                    <group>
-
-                        <field name="property_id" />
-                        <field name="personnel_id" widget="many2many_tags"/>
-                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids">
+                                <tree class="header_custom" decoration-success="(state == 'done')" decoration-warning="(state == 'in_progress')">
+                                    <field name="name" />
+                                    <field name="state" />
+                                    <field name="duration" />
+                                    <field name="personnel_id" widget="many2many_tags"/>
+                                </tree>
+                            </field> 
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
