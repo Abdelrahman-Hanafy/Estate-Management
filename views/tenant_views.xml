@@ -75,7 +75,7 @@
                                     <field name="id" invisible='1' optional='hide' />
                                     <field name="name" />
                                     <field name="state" />
-                                    <button name="Estate_Management.Maintanance_the_wizard"
+                                    <button name="Estate_Management.Maintanance_request_wizard"
                                         type="action"
                                         title="Start Maintenance" icon="fa-wrench"
                                         context="{'property_id': id}" />

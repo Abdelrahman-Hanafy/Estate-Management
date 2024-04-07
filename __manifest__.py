@@ -13,8 +13,8 @@
         'security/security.xml',
         'security/ir.model.access.csv',
 
-        'views/maintanance_views.xml',  # wizard
-        'views/property_survey.xml',
+        'wizard/maintanance_request.xml',  # wizard
+        'wizard/property_survey.xml',
 
         'views/owner_views.xml',    # views
         'views/tenant_views.xml',
@@ -26,6 +26,7 @@
         'views/agreement_views.xml',
         'views/contract_clause.xml',
         'views/contract_views.xml',
+        'views/maintanance_views.xml',
 
         'report/contract_report.xml', # report
 
