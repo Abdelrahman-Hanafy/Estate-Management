@@ -8,8 +8,12 @@ class PropertyAsset(models.Model):
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
     asset = fields.Binary(string='Asset', required=True)
-    asset_url = fields.Char(string='Asset URL')
-
+    asset_url = fields.Char(string='Asset URL', readonly=True)
+    asset_type = fields.Selection([
+        ('image', 'Image'),
+        ('video', 'Video'),
+    ], required=True)
+    
     # The type of the asset
     tag_id = fields.Many2many('property.asset.tag', string='Tag')
     category_id = fields.Many2many(
@@ -22,7 +26,8 @@ class PropertyAsset(models.Model):
     def create(self, vals):
         base_url = self.env['ir.config_parameter'].sudo(
         ).get_param('web.base.url')
-        asset = super().create(vals)
+        asset: PropertyAsset = super().create(vals)
+        
         asset.asset_url = f"{base_url}/web/image?model=property.asset&id={asset.id}&field=asset"
         return asset
 

@@ -19,6 +19,7 @@
                         <group>
                             <field name="description" />
                             <field name="asset" />
+                            <field name="asset_type" />
                         </group>
                         <group>
                             <field name="tag_id" widget="many2many_tags" />
@@ -43,14 +44,15 @@
                     <!-- Template for the kanban box -->
                     <t t-name="kanban-box">
                         <div class="oe_kanban_card oe_kanban_global_click">
-                            <!-- TODO: THIS ONLY SHOW IMAGES, VIDEOS SHOULD BE SUPPORTED TOO -->
-                            <field name="asset" widget="image" />
-                            <!-- <field name="asset_url" widget="video_display"/> -->
-
-                            <field name="property_id" />
+                            <field name="asset_type" invisible="1"/>
+                            <field name="asset" widget="image" invisible="asset_type != 'image'"/>
+                            <field name="asset_url" widget="video_display" invisible="asset_type != 'video'"/>
                             <div>
-                                <field name="tag_id" />
-                                <field name="category_id" />
+                                <field name="property_id" />
+                                <div>
+                                    <field name="tag_id" />
+                                    <field name="category_id" />
+                                </div>
                             </div>
                         </div>
                     </t>
