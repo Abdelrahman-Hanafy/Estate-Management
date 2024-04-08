@@ -13,7 +13,8 @@
         'security/security.xml',
         'security/ir.model.access.csv',
 
-        'views/property_actions.xml',
+        'data/ir_cron.xml',
+        'data/ir_act_url.xml',
 
         'wizard/maintanance_request.xml',  # wizard
         'wizard/property_survey.xml',

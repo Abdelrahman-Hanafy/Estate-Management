@@ -43,17 +43,6 @@
         </field>
     </record>
 
-    <record id="check_document_rnewable" model="ir.cron">
-        <field name="name">Document: check rnewable</field>
-        <field name="model_id" ref="model_property_document"></field>
-        <field name="state">code</field>
-        <field name="code">model.check_rnewable()</field>
-        <field name="interval_number">1</field>
-        <field name="interval_type">months</field>
-        <field name="numbercall">-1</field>
-        <field name="active">True</field>
-    </record>
-
     <record id="property_document_action" model="ir.actions.act_window">
         <!-- Name of the action -->
         <field name="name">Property Document action</field>
