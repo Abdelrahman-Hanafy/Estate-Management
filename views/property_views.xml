@@ -99,6 +99,10 @@
     <field name="model">property</field>
     <field name="arch" type="xml">
       <form string="Property">
+        <div name="button_box"  class="oe_button_box" >
+          <button name="Estate_Management.property_survey_action" 
+            type="action" string="Survey" icon="fa-external-link"/>
+        </div>
         <header>
           <field name="state" widget="statusbar"
             statusbar_visible="available, offer_received, rented" />
@@ -254,7 +258,7 @@
     </field>
   </record>
 
-
+  
   <!--
   Action for the Property model.
   -->

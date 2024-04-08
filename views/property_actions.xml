@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record model="ir.actions.act_url" id="property_survey_action">
+        <field name="name">Survey</field>
+        <field name="url">http://localhost:8069/survey/start/d3c3e35a-00d5-4187-be80-c27177832065</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
