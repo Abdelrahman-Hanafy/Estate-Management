@@ -47,6 +47,18 @@ class PropertyMaintanance(models.Model):
             done = sum(record.task_ids.filtered(lambda t: t.state == 'done').mapped('duration'))
             record.progress = (done*100 / record.duration) if record.duration else 0
     
+    #### Constraints ####
+    @api.constrains('state')
+    def _check_tasks_state(self):
+        for record in self:
+            flg=True
+            for task in record.task_ids:
+                if task.state != 'done':
+                    flg=False
+                    break
+            if not flg and record.state == 'done':
+                raise models.ValidationError('All tasks should be done first')
+
     #### Actions ####
     def action_start(self):
         self.state = 'in_progress'
@@ -107,3 +119,9 @@ class PrpertyMaintananceTask(models.Model):
     personnel_id = fields.Many2many(
         'hr.employee', string='worker'
     )
+
+    @api.constrains('state')
+    def _check_request_state(self):
+        for record in self:
+            if record.work_order_id.state == 'pending' and record.state != 'pending':
+                raise models.ValidationError('Task can only be done in progress state')
