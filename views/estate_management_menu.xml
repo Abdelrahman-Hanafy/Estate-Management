@@ -9,6 +9,7 @@
     <menuitem
         id="estate_management_root_menu"
         name="Estate Management"
+        web_icon="estate_management,static/description/icon.png"
         sequence="5"
     />
 
