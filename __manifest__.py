@@ -19,6 +19,8 @@
         'wizard/maintanance_request.xml',  # wizard
         'wizard/property_survey.xml',
 
+        'report/contract_report.xml', # report
+        
         'views/owner_views.xml',    # views
         'views/tenant_views.xml',
         'views/visitor_views.xml',
@@ -31,7 +33,6 @@
         'views/contract_views.xml',
         'views/maintanance_views.xml',
 
-        'report/contract_report.xml', # report
 
         'views/estate_management_menu.xml', # menu
 
