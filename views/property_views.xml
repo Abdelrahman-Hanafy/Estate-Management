@@ -209,8 +209,7 @@
 
                     <templates>
                       <t t-name="kanban-box">
-                        <div>
-
+                          <div class="oe_kanban_card oe_kanban_global_click">
                           <field name="asset_type" invisible="1"/>
                           <field name="asset" widget="image" invisible="asset_type != 'image'"/>
                           <field name="asset_url" widget="video_display" invisible="asset_type != 'video'"/>
